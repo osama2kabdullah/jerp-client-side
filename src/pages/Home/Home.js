@@ -8,8 +8,7 @@ import Tools from './Tools/Tools';
 const Home = () => {
     return (
         <div>
-            <div className='bannar-image'>
-            <Header></Header>
+            <div>
             <Bannar></Bannar>
             </div>
             <Tools></Tools>
