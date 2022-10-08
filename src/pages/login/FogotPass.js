@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useSendPasswordResetEmail } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
@@ -8,14 +8,22 @@ const FogotPass = () => {
   const [sendPasswordResetEmail, sending, error] = useSendPasswordResetEmail(
     auth
   );
+  const [sendSuccess, setSendSuccess] = useState('');
     const {
         register,
         handleSubmit,
         watch,
         formState: { errors },
       } = useForm();
-      const onSubmit = (data) => {
-        sendPasswordResetEmail(data.email);
+      console.log(error);
+      const onSubmit = async (data) => {
+         await sendPasswordResetEmail(data.email);
+         if(!error){
+          await setSendSuccess('');
+         }else {
+          await setSendSuccess('Reset email sent');
+         }
+         
       };
       
     return (
@@ -52,7 +60,8 @@ const FogotPass = () => {
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com"
                   />
-                  {error?.message === 'Firebase: Error (auth/user-not-found).' ? <small className="text-red-500">User not found</small> : <small className="text-green-500">Reset email sent</small>}
+                  {error?.message === 'Firebase: Error (auth/user-not-found).' && <small className="text-red-500">User not found</small> }
+                  {sendSuccess && <small className="text-green-500">{sendSuccess}</small> }
                   {errors.email?.type === 'required' && <small className="text-red-500">Email is required</small>}
                 {errors.email?.type === 'pattern' && <small className="text-red-500">Please type valid a email</small>}
                 </div>
