@@ -3,11 +3,11 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 const ToolsCard = ({tool}) => {
-    const {name, picture, _id, price, about:description, availableQty, minimumOrder} = tool;
+    const {name, picture, _id, price, availableQty} = tool;
     return (
         <Card
           imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-          imgSrc="https://flowbite.com/docs/images/blog/image-1.jpg"
+          imgSrc={picture}
         >
           <span>
             <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">

@@ -1,12 +1,30 @@
-import { Button, Checkbox, Label, Modal, Rating, TextInput } from "flowbite-react";
+import {
+  Button,
+  Checkbox,
+  Label,
+  Modal,
+  Rating,
+  TextInput,
+} from "flowbite-react";
 import React, { useState } from "react";
+import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import FullPageLoading from "../../shared/FullPageLoading";
 import BuyModal from "./BuyModal";
 
 const ToolsDetails = () => {
   const { id } = useParams();
   const [modal, setModal] = useState(false);
-  console.log(modal);
+
+  const { data: product, isLoading } = useQuery(["loadOneProduct", id], () =>
+    fetch(`http://localhost:5000/productdetail/${id}`).then((res) => res.json())
+  );
+
+  if (isLoading) {
+    return <FullPageLoading></FullPageLoading>;
+  }
+
+  const { about, picture, availableQty, name, minimumOrder, price } = product;
   return (
     <section class="text-gray-700 body-font overflow-hidden bg-white">
       <div class="container px-5 py-24 mx-auto">
@@ -14,57 +32,48 @@ const ToolsDetails = () => {
           <img
             alt="ecommerce"
             class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-            src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg"
+            src={picture}
           />
           <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <h2 class="text-sm title-font text-gray-500 tracking-widest">
               PRODUCT NAME
             </h2>
             <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">
-              The Catcher in the Rye
+              {name}
             </h1>
             <div class="flex mb-4">
-            <Rating>
-  <Rating.Star />
-  <Rating.Star />
-  <Rating.Star />
-  <Rating.Star />
-  <Rating.Star filled={false} />
-  <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-    4.95 out of 5
-  </p>
-</Rating>
+              <Rating>
+                <Rating.Star />
+                <Rating.Star />
+                <Rating.Star />
+                <Rating.Star />
+                <Rating.Star filled={false} />
+                <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                  4.95 out of 5
+                </p>
+              </Rating>
             </div>
-            <p class="leading-relaxed">
-              Fam locavore kickstarter distillery. Mixtape chillwave tumeric
-              sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo
-              juiceramps cornhole raw denim forage brooklyn. Everyday carry +1
-              seitan poutine tumeric. Gastropub blue bottle austin listicle
-              pour-over, neutra jean shorts keytar banjo tattooed umami
-              cardigan.
-            </p>
+            <p class="leading-relaxed">{about}</p>
             <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
               <div class="flex">
-                <span class="mr-3">Available Qty:</span> 634
+                <span class="mr-3">Available Qty:</span> {availableQty}
               </div>
               <div class="flex ml-6 items-center">
-                <span class="mr-3">Minimum order Qty: 634</span>
+                <span class="mr-3">Minimum order Qty: {minimumOrder}</span>
               </div>
             </div>
             <div class="flex">
               <span class="title-font font-medium text-2xl text-gray-900">
-                $58.00
+                ${price}
               </span>
-              <button onClick={()=>setModal(true)} class="flex ml-auto text-white border-0 focus:outline-none ">
-                <Button>
-    Palce Order
-  </Button>
+              <button
+                onClick={() => setModal(true)}
+                class="flex ml-auto text-white border-0 focus:outline-none "
+              >
+                <Button>Palce Order</Button>
               </button>
-              <BuyModal
-              modal={modal}
-              setModal={setModal}
-              ></BuyModal>
-              
+              <BuyModal product={product} modal={modal} setModal={setModal}></BuyModal>
+
               <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                 <svg
                   fill="currentColor"
