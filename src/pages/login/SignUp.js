@@ -1,10 +1,19 @@
-import { Button } from "flowbite-react";
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import AltLogin from "./AltLogin";
+import auth from '../../firebase.init';
+import FullPageLoading from '../shared/FullPageLoading';
 
 const SignUp = () => {
+  const [
+    createUserWithEmailAndPassword,
+    user,
+    loading,
+    error,
+  ] = useCreateUserWithEmailAndPassword(auth);
+  
   const {
     register,
     handleSubmit,
@@ -12,7 +21,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data)
+    createUserWithEmailAndPassword(data.email, data.password);
   };
   
   return (
@@ -99,37 +108,18 @@ const SignUp = () => {
                 />
                 {errors.ConfirmPassword?.type === 'required' && <small className="text-red-500">Please re enter password</small>}
               </div>
-              <div class="flex items-start">
-                <div class="flex items-center h-5">
-                  <input
-                    id="terms"
-                    aria-describedby="terms"
-                    type="checkbox"
-                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                    required=""
-                  />
-                </div>
-                <div class="ml-3 text-sm">
-                  <label
-                    for="terms"
-                    class="font-light text-gray-500 dark:text-gray-300"
-                  >
-                    I accept the{" "}
-                    <a
-                      class="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                      href="#"
-                    >
-                      Terms and Conditions
-                    </a>
-                  </label>
-                </div>
-              </div>
-              <button
+              
+              {/* {
+                loading && <FullPageLoading></FullPageLoading>
+              } */}
+              
+               <button
                 type="submit"
                 class="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Create an account
               </button>
+              
               <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                 Already have an account?{" "}
                 <Link

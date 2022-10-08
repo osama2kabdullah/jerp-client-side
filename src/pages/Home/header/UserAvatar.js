@@ -1,9 +1,11 @@
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import React from 'react';
+import { signOut } from "firebase/auth";
+import auth from '../../../firebase.init';
 
 const UserAvatar = () => {
     return (
-        <div className="flex md:order-2">
+  <div className="flex md:order-2">
     <Dropdown
       arrowIcon={false}
       inline={true}
@@ -28,7 +30,7 @@ const UserAvatar = () => {
       </Dropdown.Item>
       <Dropdown.Divider />
       <Dropdown.Item>
-        Sign out
+        <button onClick={()=>signOut(auth).then(()=>console.log('user loged out'))}>Sign out</button>
       </Dropdown.Item>
     </Dropdown>
     <Navbar.Toggle />

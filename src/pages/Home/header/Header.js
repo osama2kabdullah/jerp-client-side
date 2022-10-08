@@ -3,8 +3,12 @@ import React from "react";
 import Navlinks from "./Navlinks";
 import { Link } from "react-router-dom";
 import UserAvatar from "./UserAvatar";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from "../../../firebase.init";
 
 const Header = () => {
+  const [user, loading, error] = useAuthState(auth);
+  console.log(user);
   return (
     <Navbar fluid={true} rounded={true}>
       <Navbar.Brand href="https://flowbite.com/">
@@ -17,13 +21,17 @@ const Header = () => {
           Jerp
         </span>
       </Navbar.Brand>
-      <div className="flex md:order-2">
+      {
+        user ? 
+        <UserAvatar></UserAvatar> 
+        : 
+        <div className="flex md:order-2">
         <Link to="/login">
           <Button>Login</Button>
         </Link>
         <Navbar.Toggle />
       </div>
-      <UserAvatar></UserAvatar>
+      }
       <Navlinks></Navlinks>
     </Navbar>
   );
