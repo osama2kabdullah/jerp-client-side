@@ -1,6 +1,7 @@
 import React from 'react';
 import Bannar from './Bannar';
 import Header from './header/Header';
+import Tools from './Tools/Tools';
 
 const Home = () => {
     return (
@@ -9,7 +10,7 @@ const Home = () => {
             <Header></Header>
             <Bannar></Bannar>
             </div>
-            
+            <Tools></Tools>
         </div>
     );
 };
