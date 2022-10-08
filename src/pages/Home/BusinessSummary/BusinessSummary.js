@@ -1,6 +1,5 @@
-import { Card } from "flowbite-react";
 import React from "react";
-import HeadTitle from "../../../shared/HeadTitle";
+import HeadTitle from "../../shared/HeadTitle";
 
 const BusinessSummary = () => {
   return (
