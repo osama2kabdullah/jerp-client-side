@@ -2,6 +2,7 @@ import { Button } from "flowbite-react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import AltLogin from "./AltLogin";
 
 const SignUp = () => {
   const {
@@ -33,6 +34,14 @@ const SignUp = () => {
             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Create an account
             </h1>
+            {/* divider */}
+            <AltLogin></AltLogin>
+            <div
+            class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5"
+          >
+            <p class="text-center font-semibold mx-4 mb-0">Or</p>
+          </div>
+          {/* form */}
             <form onSubmit={handleSubmit(onSubmit)} class="space-y-4 md:space-y-6" >
               <div>
                 <label

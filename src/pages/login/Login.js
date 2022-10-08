@@ -1,10 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import AltLogin from "./AltLogin";
 
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log(data)
+  };
+  
   return (
-    <section class="bg-gray-50 dark:bg-gray-900">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <section class="bg-gray-50 py-12 dark:bg-gray-900">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
           <a
             href="#"
             class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
@@ -21,22 +33,27 @@ const Login = () => {
               <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
-              <form class="space-y-4 md:space-y-6" action="#">
+              {/* divider */}
+              <AltLogin></AltLogin>
+            <div
+            class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5"
+          >
+            <p class="text-center font-semibold mx-4 mb-0">Or</p>
+          </div>
+              <form class="space-y-4 md:space-y-6" onSubmit={handleSubmit(onSubmit)}>
                 <div>
                   <label
-                    for="email"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Your email
                   </label>
                   <input
-                    type="email"
-                    name="email"
-                    id="email"
+                  {...register("email", { required: true, pattern: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, })}
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com"
-                    required=""
                   />
+                  {errors.email?.type === 'required' && <small className="text-red-500">Email is required</small>}
+                {errors.email?.type === 'pattern' && <small className="text-red-500">Please type valid a email</small>}
                 </div>
                 <div>
                   <label
@@ -46,13 +63,11 @@ const Login = () => {
                     Password
                   </label>
                   <input
-                    type="password"
-                    name="password"
-                    id="password"
+                  {...register("password", { required: true })}
                     placeholder="••••••••"
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
                   />
+                  {errors.password?.type === 'required' && <small className="text-red-500">password is required</small>}
                 </div>
                 <div class="flex items-center justify-between">
                   <div class="flex items-start">

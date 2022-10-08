@@ -2,6 +2,7 @@ import { Button, Navbar } from "flowbite-react";
 import React from "react";
 import Navlinks from "./Navlinks";
 import { Link } from "react-router-dom";
+import UserAvatar from "./UserAvatar";
 
 const Header = () => {
   return (
@@ -22,6 +23,7 @@ const Header = () => {
         </Link>
         <Navbar.Toggle />
       </div>
+      <UserAvatar></UserAvatar>
       <Navlinks></Navlinks>
     </Navbar>
   );
