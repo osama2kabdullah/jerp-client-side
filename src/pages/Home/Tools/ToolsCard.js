@@ -1,8 +1,9 @@
 import { Card } from 'flowbite-react';
 import React from 'react';
+import { Link } from "react-router-dom";
 
 const ToolsCard = ({tool}) => {
-    const {name, picture, price, about:description, availableQty, minimumOrder} = tool;
+    const {name, picture, _id, price, about:description, availableQty, minimumOrder} = tool;
     return (
         <Card
           imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
@@ -20,12 +21,12 @@ const ToolsCard = ({tool}) => {
             <span className="text-3xl font-bold text-gray-900 dark:text-white">
               ${price}
             </span>
-            <a
-              href="#"
+            <Link
+              to={'productdetail/'+_id}
               className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Order Now
-            </a>
+            </Link>
           </div>
         </Card>
     );

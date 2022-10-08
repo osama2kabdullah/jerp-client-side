@@ -1,6 +1,6 @@
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useAuthState } from 'react-firebase-hooks/auth';
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import AltLogin from "./AltLogin";
 import auth from '../../firebase.init';
@@ -29,6 +29,17 @@ const SignUp = () => {
       setPassMatch('Dont match');
     }
   };
+  
+  const [CurrentUser, CurrentUserLoading] = useAuthState(auth);
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
+  if (user || CurrentUser) {
+    navigate(from, { replace: true });
+  }
+  if(CurrentUserLoading){
+    return <FullPageLoading></FullPageLoading>
+  }
   
   return (
     <section class="bg-gray-50 py-12 dark:bg-gray-900">

@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import AltLogin from "./AltLogin";
 import auth from "../../firebase.init";
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useAuthState } from 'react-firebase-hooks/auth';
 import FullPageLoading from "../shared/FullPageLoading";
 
 const Login = () => {
@@ -13,7 +13,6 @@ const Login = () => {
     loading,
     error,
   ] = useSignInWithEmailAndPassword(auth);
-  console.log(error?.message);
   const {
     register,
     handleSubmit,
@@ -24,6 +23,16 @@ const Login = () => {
     signInWithEmailAndPassword(data.email, data.password);
   };
   
+  const [CurrentUser, CurrentUserLoading] = useAuthState(auth);
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
+  if (user || CurrentUser) {
+    navigate(from, { replace: true });
+  }
+  if(CurrentUserLoading){
+    return <FullPageLoading></FullPageLoading>
+  }
   return (
     <section class="bg-gray-50 py-12 dark:bg-gray-900">
       {

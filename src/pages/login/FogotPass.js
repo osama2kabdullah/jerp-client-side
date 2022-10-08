@@ -15,7 +15,7 @@ const FogotPass = () => {
         watch,
         formState: { errors },
       } = useForm();
-      console.log(error);
+      
       const onSubmit = async (data) => {
          await sendPasswordResetEmail(data.email);
          if(!error){

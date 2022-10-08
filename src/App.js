@@ -6,6 +6,8 @@ import { Routes, Route, Link } from "react-router-dom";
 import Login from './pages/login/Login';
 import SignUp from './pages/login/SignUp';
 import FogotPass from './pages/login/FogotPass';
+import ToolsDetails from './pages/Home/Tools/ToolsDetails';
+import RequirAuth from './pages/shared/RequireAuth';
 
 function App() {
   return (
@@ -16,6 +18,12 @@ function App() {
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/signup' element={<SignUp></SignUp>}></Route>
         <Route path='/forgotpassword' element={<FogotPass></FogotPass>}></Route>
+        <Route path='/forgotpassword' element={<FogotPass></FogotPass>}></Route>
+        <Route path='/productdetail/:id' element={
+          <RequirAuth>
+        <ToolsDetails></ToolsDetails>
+        </RequirAuth>
+        }></Route>
       </Routes>
       <FooterMe></FooterMe>
     </div>
