@@ -11,7 +11,7 @@ const Tools = () => {
       return <LoadSpinner></LoadSpinner>
     }
   return (
-    <div className="lg:mx-12 mx-8 my-32">
+    <div className="lg:mx-12 mx-8 ">
         <HeadTitle>Tools</HeadTitle>
       <div className="grid lg:grid-cols-3 lg:gap-12 gap-8">
         {

@@ -2,12 +2,19 @@ import './App.css';
 import FooterMe from './pages/FooterMe';
 import Header from './pages/Home/header/Header';
 import Home from './pages/Home/Home';
+import { Routes, Route, Link } from "react-router-dom";
+import Login from './pages/login/Login';
+import SignUp from './pages/login/SignUp';
 
 function App() {
   return (
     <div>
       <Header></Header>
-      <Home></Home>
+      <Routes>
+        <Route path='/' element={<Home></Home>}></Route>
+        <Route path='/login' element={<Login></Login>}></Route>
+        <Route path='/signup' element={<SignUp></SignUp>}></Route>
+      </Routes>
       <FooterMe></FooterMe>
     </div>
   );
