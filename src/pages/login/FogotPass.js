@@ -1,7 +1,13 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
+import { useSendPasswordResetEmail } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
+import FullPageLoading from '../shared/FullPageLoading';
 
 const FogotPass = () => {
+  const [sendPasswordResetEmail, sending, error] = useSendPasswordResetEmail(
+    auth
+  );
     const {
         register,
         handleSubmit,
@@ -9,13 +15,14 @@ const FogotPass = () => {
         formState: { errors },
       } = useForm();
       const onSubmit = (data) => {
-        console.log(data);
+        sendPasswordResetEmail(data.email);
       };
+      
     return (
         <section class="bg-gray-50 py-12 dark:bg-gray-900">
-      {/* {
-        loading && <FullPageLoading></FullPageLoading>
-      } */}
+      {
+        sending && <FullPageLoading></FullPageLoading>
+      }
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
           <a
             href="#"
@@ -45,6 +52,7 @@ const FogotPass = () => {
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com"
                   />
+                  {error?.message === 'Firebase: Error (auth/user-not-found).' ? <small className="text-red-500">User not found</small> : <small className="text-green-500">Reset email sent</small>}
                   {errors.email?.type === 'required' && <small className="text-red-500">Email is required</small>}
                 {errors.email?.type === 'pattern' && <small className="text-red-500">Please type valid a email</small>}
                 </div>
