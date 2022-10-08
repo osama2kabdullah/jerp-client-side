@@ -1,12 +1,15 @@
-import { Card } from "flowbite-react";
+import { Card, Spinner } from "flowbite-react";
 import React from "react";
 import { useQuery } from "react-query";
 import HeadTitle from "../../shared/HeadTitle";
+import LoadSpinner from "../../shared/LoadSpinner";
 import ToolsCard from "./ToolsCard";
 
 const Tools = () => {
-    const {data:tools} = useQuery(['alldata'], ()=>fetch('tools.json').then(res=>res.json()));
-    
+    const {data:tools, isLoading} = useQuery(['alldata'], ()=>fetch('tools.json').then(res=>res.json()));
+    if(isLoading){
+      return <LoadSpinner></LoadSpinner>
+    }
   return (
     <div className="lg:mx-12 mx-8 my-32">
         <HeadTitle>Tools</HeadTitle>
