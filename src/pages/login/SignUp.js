@@ -21,11 +21,16 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    createUserWithEmailAndPassword(data.email, data.password);
+    if(data.ConfirmPassword === data.password){
+      createUserWithEmailAndPassword(data.email, data.password); 
+    }
   };
   
   return (
     <section class="bg-gray-50 py-12 dark:bg-gray-900">
+       {
+        loading && <FullPageLoading></FullPageLoading>
+      }
       <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
         <a
           href="#"
@@ -108,10 +113,6 @@ const SignUp = () => {
                 />
                 {errors.ConfirmPassword?.type === 'required' && <small className="text-red-500">Please re enter password</small>}
               </div>
-              
-              {/* {
-                loading && <FullPageLoading></FullPageLoading>
-              } */}
               
                <button
                 type="submit"

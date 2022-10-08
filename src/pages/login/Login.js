@@ -2,8 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import AltLogin from "./AltLogin";
+import auth from "../../firebase.init";
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import FullPageLoading from "../shared/FullPageLoading";
 
 const Login = () => {
+  const [
+    signInWithEmailAndPassword,
+    user,
+    loading,
+    error,
+  ] = useSignInWithEmailAndPassword(auth);
   const {
     register,
     handleSubmit,
@@ -11,11 +20,14 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data)
+    signInWithEmailAndPassword(data.email, data.password);
   };
   
   return (
     <section class="bg-gray-50 py-12 dark:bg-gray-900">
+      {
+        loading && <FullPageLoading></FullPageLoading>
+      }
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
           <a
             href="#"
@@ -89,13 +101,14 @@ const Login = () => {
                       </label>
                     </div>
                   </div>
-                  <a
-                    href="#"
+                  <Link
+                    to="/forgotpassword"
                     class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
                     Forgot password?
-                  </a>
+                  </Link>
                 </div>
+                
                 <button
                   type="submit"
                   class="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"

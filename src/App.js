@@ -5,6 +5,7 @@ import Home from './pages/Home/Home';
 import { Routes, Route, Link } from "react-router-dom";
 import Login from './pages/login/Login';
 import SignUp from './pages/login/SignUp';
+import FogotPass from './pages/login/FogotPass';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/signup' element={<SignUp></SignUp>}></Route>
+        <Route path='/forgotpassword' element={<FogotPass></FogotPass>}></Route>
       </Routes>
       <FooterMe></FooterMe>
     </div>
