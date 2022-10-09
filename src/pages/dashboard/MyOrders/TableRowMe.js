@@ -1,8 +1,7 @@
 import { Button, Table } from "flowbite-react";
 import React from "react";
 
-const TableRowMe = ({ order }) => {
-  console.log(order);
+const TableRowMe = ({ order, setModal }) => {
   const { productName, productQuantity, totalPrice } = order;
   return (
     <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -12,12 +11,12 @@ const TableRowMe = ({ order }) => {
       <Table.Cell>{productQuantity}</Table.Cell>
       <Table.Cell>${totalPrice}</Table.Cell>
       <Table.Cell>
-        <a
-          href="/tables"
+        <button
+        onClick={()=>setModal(order)}
           className="font-medium text-blue-600 hover:underline dark:text-blue-500"
         >
-          Edit
-        </a>
+          Cancel
+        </button>
       </Table.Cell>
       <Table.Cell>
         <Button color="purple" size="xs">Pay</Button>

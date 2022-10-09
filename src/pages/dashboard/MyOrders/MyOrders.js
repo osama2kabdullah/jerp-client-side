@@ -1,11 +1,15 @@
-import { Table } from "flowbite-react";
-import React from "react";
+import { Button, Modal, Table } from "flowbite-react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import FullPageLoading from "../../shared/FullPageLoading";
+import DeleteModal from "./DeleteModal";
 import TableRowMe from "./TableRowMe";
 
 const MyOrders = () => {
-  const { data, isLoading } = useQuery("myorders", () =>
+  const [modal, setModal] = useState(false);
+  
+  //load data
+  const { data, isLoading, refetch } = useQuery("myorders", () =>
     fetch("http://localhost:5000/myorders", {
       method: "GET",
       headers: {
@@ -13,11 +17,28 @@ const MyOrders = () => {
       },
     }).then((res) => res.json())
   );
+  
   if (isLoading) {
     return <FullPageLoading></FullPageLoading>;
   }
-
-  console.log(data.orderlist);
+  
+  //remove a data
+  const handleDelete = name => {
+    const rest = data.orderlist.filter(order=>order.productName !== name.productName);
+    fetch('http://localhost:5000/cancelOrder', {
+        method: 'POST',
+        headers: {
+            'content-type':'application/json',
+            authorization: `Bearer ${localStorage.getItem('access_token')}`
+        },
+        body: JSON.stringify({rest})
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        console.log(data);
+    })
+  }
+  
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">Manage Orders</h2>
@@ -34,11 +55,14 @@ const MyOrders = () => {
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-            {
-                data.orderlist.map(order=><TableRowMe order={order}></TableRowMe>)
-            }
+          {data.orderlist.map((order) => (
+            <>
+            <TableRowMe setModal={setModal} order={order}></TableRowMe>
+            </>
+          ))}
         </Table.Body>
       </Table>
+      <DeleteModal refetch={refetch()} handleDelete={handleDelete} modal={modal} setModal={setModal}></DeleteModal>
     </div>
   );
 };
