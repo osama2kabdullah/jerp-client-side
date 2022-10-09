@@ -25,7 +25,7 @@ const SignUp = () => {
   const onSubmit = (data) => {
     if(data.ConfirmPassword === data.password){
       createUserWithEmailAndPassword(data.email, data.password); 
-      const doc = {name: data.name, email: data.email};
+      const doc = {name: data.name};
       //save to db this user
       fetch('https://damp-reef-67167.herokuapp.com/updateoradduser/'+data.email, {
         method: 'PUT',

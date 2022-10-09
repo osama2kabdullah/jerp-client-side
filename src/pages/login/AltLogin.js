@@ -10,10 +10,10 @@ const AltLogin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const doc = { name: user?.user?.displayName, email: user?.user?.email };
+    const doc = { name: user?.user?.displayName };
     //save to db this user
     if (user) {
-      fetch("https://damp-reef-67167.herokuapp.com/updateoradduser/" + doc.email, {
+      fetch("https://damp-reef-67167.herokuapp.com/updateoradduser/" + user?.user?.email, {
         method: "PUT",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(doc),

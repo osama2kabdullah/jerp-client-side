@@ -24,7 +24,7 @@ const Login = () => {
   const onSubmit = (data) => {
     signInWithEmailAndPassword(data.email, data.password);
     
-    const doc = {email: data.email};
+    const doc = {};
     //save to db this user
     fetch('https://damp-reef-67167.herokuapp.com/updateoradduser/'+data.email, {
       method: 'PUT',
