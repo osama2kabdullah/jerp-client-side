@@ -8,8 +8,10 @@ import SignUp from './pages/login/SignUp';
 import FogotPass from './pages/login/FogotPass';
 import ToolsDetails from './pages/Home/Tools/ToolsDetails';
 import RequirAuth from './pages/shared/RequireAuth';
+import { useEffect } from 'react';
 
 function App() {
+  
   return (
     <div>
       <Header></Header>
