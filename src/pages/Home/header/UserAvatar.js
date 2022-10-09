@@ -30,7 +30,7 @@ const UserAvatar = () => {
       </Dropdown.Item>
       <Dropdown.Divider />
       <Dropdown.Item>
-        <button onClick={()=>signOut(auth).then(()=>console.log('user loged out'))}>Sign out</button>
+        <button onClick={()=>signOut(auth).then(()=>localStorage.removeItem('access_token'))}>Sign out</button>
       </Dropdown.Item>
     </Dropdown>
     <Navbar.Toggle />

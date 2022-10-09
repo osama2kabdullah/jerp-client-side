@@ -24,6 +24,19 @@ const SignUp = () => {
   const onSubmit = (data) => {
     if(data.ConfirmPassword === data.password){
       createUserWithEmailAndPassword(data.email, data.password); 
+      const doc = {name: data.name, email: data.email};
+      //save to db this user
+      fetch('http://localhost:5000/updateoradduser/'+data.email, {
+        method: 'PUT',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(doc)
+      })
+      .then(res=>res.json())
+      .then(data=>{
+        //save to loacal storage
+        localStorage.setItem('access_token', data.token);
+      })
+      
       setPassMatch('');
     } else {
       setPassMatch('Dont match');
@@ -34,7 +47,8 @@ const SignUp = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
-  if (user || CurrentUser) {
+  const token = localStorage.getItem('access_token');
+  if (token) {
     navigate(from, { replace: true });
   }
   if(CurrentUserLoading){

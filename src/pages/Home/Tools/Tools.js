@@ -7,7 +7,8 @@ import LoadSpinner from "../../shared/LoadSpinner";
 import ToolsCard from "./ToolsCard";
 
 const Tools = () => {
-    const {data:tools, isLoading} = useQuery(['alldata'], ()=>fetch('http://localhost:5000/products').then(res=>res.json()));
+    const {data:tools, isLoading, error} = useQuery(['alldata'], ()=>fetch('https://damp-reef-67167.herokuapp.com/products').then(res=>res.json()));
+    
     if(isLoading){
       return <FullPageLoading></FullPageLoading>
     }
@@ -17,7 +18,7 @@ const Tools = () => {
         
       <div className="grid lg:grid-cols-3 lg:gap-12 gap-8">
         {
-            tools.map(tool=><ToolsCard
+            tools?.map(tool=><ToolsCard
             tool={tool}
             key={tool._id}
             ></ToolsCard>)

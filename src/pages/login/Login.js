@@ -19,15 +19,31 @@ const Login = () => {
     watch,
     formState: { errors },
   } = useForm();
+  
   const onSubmit = (data) => {
     signInWithEmailAndPassword(data.email, data.password);
+    
+    const doc = {email: data.email};
+    //save to db this user
+    fetch('http://localhost:5000/updateoradduser/'+data.email, {
+      method: 'PUT',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify(doc)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      //save to loacal storage
+      localStorage.setItem('access_token', data.token);
+    })
+    
   };
   
   const [CurrentUser, CurrentUserLoading] = useAuthState(auth);
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
-  if (user || CurrentUser) {
+  const token = localStorage.getItem('access_token');
+  if (token) {
     navigate(from, { replace: true });
   }
   if(CurrentUserLoading){

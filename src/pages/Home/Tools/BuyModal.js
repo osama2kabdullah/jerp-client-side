@@ -4,7 +4,7 @@ import React, {useState} from "react";
 const BuyModal = ({ modal, setModal, product }) => {
   const { availableQty, name, minimumOrder, price } = product;
 
-  const [orderQty, setOrderQty] = useState(minimumOrder);
+  const [orderQty, setOrderQty] = useState(0);
   console.log(orderQty);
   
   return (
@@ -23,7 +23,7 @@ const BuyModal = ({ modal, setModal, product }) => {
             </h3>
 
             <form class="w-full max-w-lg">
-            <h2 className='text-lg font-bold mb-6'>Available: {availableQty - orderQty}</h2>
+            <h2 className='text-lg font-bold mb-6'>Available: {availableQty}</h2>
               <div class="flex flex-wrap  mb-6">
                 <div class="w-full md:w-1/2 mb-6 md:mb-0">
                   <label
@@ -46,7 +46,7 @@ const BuyModal = ({ modal, setModal, product }) => {
                   >
                     Total
                   </label>
-                  <h1 className="text-xl font-bold mt-4">${(price * orderQty).toFixed(2)}</h1>
+                  <h1 className="text-xl font-bold mt-4">${(price * orderQty || 1).toFixed(2)}</h1>
                 </div>
                 
               </div>
