@@ -23,7 +23,7 @@ const Header = () => {
       </Navbar.Brand>
       {
         user ? 
-        <UserAvatar></UserAvatar> 
+        <UserAvatar user={user}></UserAvatar> 
         : 
         <div className="flex md:order-2">
         <Link to="/login">

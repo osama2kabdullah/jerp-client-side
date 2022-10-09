@@ -1,0 +1,29 @@
+import { Button, Table } from "flowbite-react";
+import React from "react";
+
+const TableRowMe = ({ order }) => {
+  console.log(order);
+  const { productName, productQuantity, totalPrice } = order;
+  return (
+    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+        {productName}
+      </Table.Cell>
+      <Table.Cell>{productQuantity}</Table.Cell>
+      <Table.Cell>${totalPrice}</Table.Cell>
+      <Table.Cell>
+        <a
+          href="/tables"
+          className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+        >
+          Edit
+        </a>
+      </Table.Cell>
+      <Table.Cell>
+        <Button color="purple" size="xs">Pay</Button>
+      </Table.Cell>
+    </Table.Row>
+  );
+};
+
+export default TableRowMe;

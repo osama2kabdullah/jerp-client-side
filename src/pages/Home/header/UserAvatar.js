@@ -2,8 +2,10 @@ import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import React from 'react';
 import { signOut } from "firebase/auth";
 import auth from '../../../firebase.init';
+import DropdownLinks from './DropdownLinks';
 
-const UserAvatar = () => {
+const UserAvatar = ({user}) => {
+  const {displayName, email} = user;
     return (
   <div className="flex md:order-2">
     <Dropdown
@@ -13,21 +15,13 @@ const UserAvatar = () => {
     >
       <Dropdown.Header>
         <span className="block text-sm">
-          Bonnie Green
+          {displayName}
         </span>
         <span className="block truncate text-sm font-medium">
-          name@flowbite.com
+          {email}
         </span>
       </Dropdown.Header>
-      <Dropdown.Item>
-        Dashboard
-      </Dropdown.Item>
-      <Dropdown.Item>
-        Settings
-      </Dropdown.Item>
-      <Dropdown.Item>
-        Earnings
-      </Dropdown.Item>
+      <DropdownLinks></DropdownLinks>
       <Dropdown.Divider />
       <Dropdown.Item>
         <button onClick={()=>signOut(auth).then(()=>localStorage.removeItem('access_token'))}>Sign out</button>
