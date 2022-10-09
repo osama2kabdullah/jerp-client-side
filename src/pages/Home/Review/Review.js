@@ -1,16 +1,18 @@
 import { Card, Dropdown } from "flowbite-react";
 import React from "react";
+import { useQuery } from "react-query";
 import HeadTitle from "../../shared/HeadTitle";
 import ReviewCard from "./ReviewCard";
 
 const Review = () => {
+  const {data: reviews, isLoading} = useQuery('loadReview', ()=>fetch('https://damp-reef-67167.herokuapp.com/reviews').then(res=>res.json()));
   return (
     <div className="lg:mx-12 mx-8 my-32">
       <HeadTitle>Reviews</HeadTitle>
       <div className="grid lg:grid-cols-3 lg:gap-12 gap-8">
-        <ReviewCard></ReviewCard>
-        <ReviewCard></ReviewCard>
-        <ReviewCard></ReviewCard>
+        {
+        reviews?.result?.map(review=><ReviewCard review={review}></ReviewCard>)
+        }
       </div>
     </div>
   );
