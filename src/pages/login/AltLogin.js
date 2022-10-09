@@ -13,7 +13,7 @@ const AltLogin = () => {
     const doc = { name: user?.user?.displayName, email: user?.user?.email };
     //save to db this user
     if (user) {
-      fetch("http://localhost:5000/updateoradduser/" + doc.email, {
+      fetch("https://damp-reef-67167.herokuapp.com/updateoradduser/" + doc.email, {
         method: "PUT",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(doc),

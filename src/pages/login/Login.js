@@ -25,7 +25,7 @@ const Login = () => {
     
     const doc = {email: data.email};
     //save to db this user
-    fetch('http://localhost:5000/updateoradduser/'+data.email, {
+    fetch('https://damp-reef-67167.herokuapp.com/updateoradduser/'+data.email, {
       method: 'PUT',
       headers: {'content-type': 'application/json'},
       body: JSON.stringify(doc)
