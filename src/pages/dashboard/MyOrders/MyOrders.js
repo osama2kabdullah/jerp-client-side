@@ -17,16 +17,16 @@ const MyOrders = () => {
       },
     }).then((res) => res.json())
   );
-  
+  console.log(data);
   if (isLoading) {
     return <FullPageLoading></FullPageLoading>;
   }
   
   //remove a data
   const handleDelete = name => {
-    const rest = data.orderlist.filter(order=>order.productName !== name.productName);
+    const rest = data?.result?.orderlist?.filter(order=>order.productName !== name.productName);
     fetch('http://localhost:5000/cancelOrder', {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
             'content-type':'application/json',
             authorization: `Bearer ${localStorage.getItem('access_token')}`
@@ -55,7 +55,7 @@ const MyOrders = () => {
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {data.orderlist.map((order) => (
+          {data?.result?.orderlist?.map((order) => (
             <>
             <TableRowMe setModal={setModal} order={order}></TableRowMe>
             </>

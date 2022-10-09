@@ -1,5 +1,5 @@
 import { useCreateUserWithEmailAndPassword, useAuthState } from 'react-firebase-hooks/auth';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import AltLogin from "./AltLogin";
@@ -8,6 +8,7 @@ import FullPageLoading from '../shared/FullPageLoading';
 
 const SignUp = () => {
   const [passMatch, setPassMatch] = useState('');
+  const [token, setToken] = useState('');
   const [
     createUserWithEmailAndPassword,
     user,
@@ -35,6 +36,7 @@ const SignUp = () => {
       .then(data=>{
         //save to loacal storage
         localStorage.setItem('access_token', data.token);
+        setToken(data.token);
       })
       
       setPassMatch('');
@@ -47,10 +49,13 @@ const SignUp = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
-  const token = localStorage.getItem('access_token');
-  if (token) {
-    navigate(from, { replace: true });
-  }
+  
+  useEffect(()=>{
+    if(token){
+      navigate(from, { replace: true });
+    }
+  },[token, navigate, from])
+  
   if(CurrentUserLoading){
     return <FullPageLoading></FullPageLoading>
   }

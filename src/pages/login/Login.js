@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import AltLogin from "./AltLogin";
@@ -7,6 +7,7 @@ import { useSignInWithEmailAndPassword, useAuthState } from 'react-firebase-hook
 import FullPageLoading from "../shared/FullPageLoading";
 
 const Login = () => {
+  const [token, setToken] = useState('');
   const [
     signInWithEmailAndPassword,
     user,
@@ -34,6 +35,7 @@ const Login = () => {
     .then(data=>{
       //save to loacal storage
       localStorage.setItem('access_token', data.token);
+      setToken(data.token);
     })
     
   };
@@ -42,10 +44,12 @@ const Login = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
-  const token = localStorage.getItem('access_token');
-  if (token) {
-    navigate(from, { replace: true });
-  }
+  useEffect(()=>{
+    if (token) {
+      navigate(from, { replace: true });
+    }
+  },[token, navigate, from]);
+  
   if(CurrentUserLoading){
     return <FullPageLoading></FullPageLoading>
   }
