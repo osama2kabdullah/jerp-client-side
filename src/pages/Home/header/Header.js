@@ -8,7 +8,6 @@ import auth from "../../../firebase.init";
 
 const Header = () => {
   const [user, loading, error] = useAuthState(auth);
-  console.log('user', user);
   return (
     <Navbar fluid={true} rounded={true}>
       <Navbar.Brand href="https://flowbite.com/">
