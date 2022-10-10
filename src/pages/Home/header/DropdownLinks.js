@@ -5,15 +5,18 @@ import { Link } from "react-router-dom";
 const DropdownLinks = () => {
   return (
     <>
-      <Dropdown.Item>
-        <Link to='/dashboard'>Dashboard</Link>
-      </Dropdown.Item>
-      <Dropdown.Item>
-        <Link>Settings</Link>
-      </Dropdown.Item>
-      <Dropdown.Item>
-        <Link>Earnings</Link>
-      </Dropdown.Item>
+      <Link to="/myprofile">
+        <Dropdown.Item>My Profile</Dropdown.Item>
+      </Link>
+      <Link to="/dashboard">
+        <Dropdown.Item>Dashboard</Dropdown.Item>
+      </Link>
+      <Link to='/settings'>
+        <Dropdown.Item>Settings</Dropdown.Item>
+      </Link>
+      <Link>
+        <Dropdown.Item>Earnings</Dropdown.Item>
+      </Link>
     </>
   );
 };

@@ -12,6 +12,9 @@ import { useEffect } from "react";
 import Dashboard from "./pages/dashboard/Dashboard";
 import MyOrders from "./pages/dashboard/MyOrders/MyOrders";
 import AddReview from "./pages/dashboard/AddReview";
+import Settings from "./pages/MyProfile/Settings";
+import EditProfile from "./pages/MyProfile/EditProfile";
+import MyProfile from "./pages/MyProfile/MyProfile";
 
 function App() {
   return (
@@ -42,6 +45,17 @@ function App() {
           <Route path="" element={<MyOrders></MyOrders>}></Route>
           <Route path="addreview" element={<AddReview></AddReview>}></Route>
         </Route>
+        <Route
+          path="/settings"
+          element={
+            <RequirAuth>
+              <Settings></Settings>
+            </RequirAuth>
+          }
+        >
+          <Route path="" element={<EditProfile></EditProfile>}></Route>
+        </Route>
+        <Route path="/myprofile" element={<MyProfile></MyProfile>}></Route>
       </Routes>
       <FooterMe></FooterMe>
     </div>
