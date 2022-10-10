@@ -1,8 +1,12 @@
 import { Button } from "flowbite-react";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AppContext } from "../../App";
 
 const MyProfile = () => {
+  const contextValue = useContext(AppContext);
+  const {UserName, about, city, countryName, photoURL, state, street} = contextValue?.doc;
+  
   return (
     <section class="pt-16 bg-blueGray-50">
         
@@ -14,7 +18,7 @@ const MyProfile = () => {
             <div class="flex flex-wrap justify-center">
               <div class="w-full px-4 flex justify-center">
                 <div class="relative">
-                    <img className="rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="" />
+                    <img className="rounded-full" src={photoURL} alt="" />
                 </div>
               </div>
               <div class="w-full px-4 text-center mt-5">
@@ -42,11 +46,11 @@ const MyProfile = () => {
             </div>
             <div class="text-center mt-12">
               <h3 class="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                Jenna Stones
+                {UserName}
               </h3>
               <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                 <i class="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                Los Angeles, California
+                {street}, {state}, {city}, {countryName}
               </div>
               <div class="mb-2 text-blueGray-600 mt-10">
                 <i class="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
@@ -61,11 +65,7 @@ const MyProfile = () => {
               <div class="flex flex-wrap justify-center">
                 <div class="w-full lg:w-9/12 px-4">
                   <p class="mb-4 text-lg leading-relaxed text-blueGray-700">
-                    An artist of considerable range, Jenna the name taken by
-                    Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                    performs and records all of his own music, giving it a warm,
-                    intimate feel with a solid groove structure. An artist of
-                    considerable range.
+                    {about}
                   </p>
                 </div>
               </div>
