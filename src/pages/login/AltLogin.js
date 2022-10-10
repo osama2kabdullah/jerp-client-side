@@ -13,19 +13,33 @@ const AltLogin = () => {
     const doc = { name: user?.user?.displayName };
     //save to db this user
     if (user) {
-      fetch("https://damp-reef-67167.herokuapp.com/updateoradduser/" + user?.user?.email, {
-        method: "PUT",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(doc),
-      })
+      fetch(
+        "https://damp-reef-67167.herokuapp.com/updateoradduser/" +
+          user?.user?.email,
+        {
+          method: "PUT",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(doc),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           //save to loacal storage
-          localStorage.setItem("access_token", data.token);
-            navigate(from, { replace: true });
+          console.log(data);
         });
     }
-  }, [user, from, navigate]);
+  }, [user]);
+
+  useEffect(() => {
+    if(user){
+      fetch("http://localhost:5000/gettoken/" + user?.user?.email)
+      .then((res) => res.json())
+      .then((data) => {
+        localStorage.setItem("access_token", data.token);
+        navigate(from, { replace: true });
+      });
+    }
+  }, [from, navigate, user]);
 
   return (
     <button
