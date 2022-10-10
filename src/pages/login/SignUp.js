@@ -48,7 +48,7 @@ const SignUp = () => {
   useEffect(() => {
     //get authorization token
     if (user) {
-      fetch("http://localhost:5000/gettoken/" + user?.user?.email)
+      fetch("https://damp-reef-67167.herokuapp.com/gettoken/" + user?.user?.email)
         .then((res) => res.json())
         .then((data) => {
           //save to loacal storage

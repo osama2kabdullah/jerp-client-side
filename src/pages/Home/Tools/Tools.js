@@ -4,10 +4,11 @@ import { useQuery } from "react-query";
 import FullPageLoading from "../../shared/FullPageLoading";
 import HeadTitle from "../../shared/HeadTitle";
 import LoadSpinner from "../../shared/LoadSpinner";
+import useLoadTools from "../../shared/useLoadTools";
 import ToolsCard from "./ToolsCard";
 
 const Tools = () => {
-    const {data:tools, isLoading, error} = useQuery(['alldata'], ()=>fetch('https://damp-reef-67167.herokuapp.com/products').then(res=>res.json()));
+    const [tools, isLoading] = useLoadTools();
     
     if(isLoading){
       return <FullPageLoading></FullPageLoading>

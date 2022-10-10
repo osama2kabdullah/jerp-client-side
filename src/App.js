@@ -17,11 +17,13 @@ import EditProfile from "./pages/MyProfile/EditProfile";
 import MyProfile from "./pages/MyProfile/MyProfile";
 import { useQuery } from "react-query";
 import FullPageLoading from "./pages/shared/FullPageLoading";
+import ManageProducts from "./pages/dashboard/ManageProducts/ManageProducts";
+import UpdateProducts from "./pages/dashboard/ManageProducts/UpdateProducts";
 
 export const AppContext = createContext();
 
 function App() {
-  const {data, isLoading} = useQuery('loadContextUser', ()=>fetch('http://localhost:5000/finduser', {
+  const {data, isLoading} = useQuery('loadContextUser', ()=>fetch('https://damp-reef-67167.herokuapp.com/finduser', {
     method: 'GET',
     headers: {
       authorization: `Bearer ${localStorage.getItem("access_token")}`
@@ -60,6 +62,8 @@ function App() {
         >
           <Route path="" element={<MyOrders></MyOrders>}></Route>
           <Route path="addreview" element={<AddReview></AddReview>}></Route>
+          <Route path="manageproducts" element={<ManageProducts></ManageProducts>}></Route>
+          <Route path="manageproducts/updateproduct/:id" element={<UpdateProducts></UpdateProducts>}></Route>
         </Route>
         <Route
           path="/settings"
