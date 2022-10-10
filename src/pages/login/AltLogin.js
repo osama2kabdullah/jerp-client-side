@@ -10,7 +10,7 @@ const AltLogin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const doc = { name: user?.user?.displayName };
+    const doc = { UserName: user?.user?.displayName, photoURL: user?.user?.photoURL };
     //save to db this user
     if (user) {
       fetch(

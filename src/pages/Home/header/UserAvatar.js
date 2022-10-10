@@ -1,31 +1,30 @@
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { signOut } from "firebase/auth";
 import auth from '../../../firebase.init';
 import DropdownLinks from './DropdownLinks';
+import { AppContext } from '../../../App';
 
 const UserAvatar = ({user}) => {
-  const {displayName, email} = user;
+  const contextValue = useContext(AppContext);
     return (
   <div className="flex md:order-2">
     <Dropdown
       arrowIcon={false}
       inline={true}
-      label={<Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded={true}/>}
+      label={<Avatar alt="User settings" img={contextValue?.doc?.photoURL} rounded={true}/>}
     >
       <Dropdown.Header>
         <span className="block text-sm">
-          {displayName}
+          {contextValue?.doc?.UserName}
         </span>
         <span className="block truncate text-sm font-medium">
-          {email}
+          {contextValue?.email}
         </span>
       </Dropdown.Header>
       <DropdownLinks></DropdownLinks>
       <Dropdown.Divider />
-      <Dropdown.Item>
-        <button onClick={()=>signOut(auth).then(()=>localStorage.removeItem('access_token'))}>Sign out</button>
-      </Dropdown.Item>
+      <button className='w-full' onClick={()=>signOut(auth).then(()=>localStorage.removeItem('access_token'))}><Dropdown.Item>Sign out</Dropdown.Item></button>
     </Dropdown>
     <Navbar.Toggle />
   </div>

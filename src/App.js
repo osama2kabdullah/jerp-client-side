@@ -8,17 +8,33 @@ import SignUp from "./pages/login/SignUp";
 import FogotPass from "./pages/login/FogotPass";
 import ToolsDetails from "./pages/Home/Tools/ToolsDetails";
 import RequirAuth from "./pages/shared/RequireAuth";
-import { useEffect } from "react";
+import { createContext, useEffect } from "react";
 import Dashboard from "./pages/dashboard/Dashboard";
 import MyOrders from "./pages/dashboard/MyOrders/MyOrders";
 import AddReview from "./pages/dashboard/AddReview";
 import Settings from "./pages/MyProfile/Settings";
 import EditProfile from "./pages/MyProfile/EditProfile";
 import MyProfile from "./pages/MyProfile/MyProfile";
+import { useQuery } from "react-query";
+import FullPageLoading from "./pages/shared/FullPageLoading";
+
+export const AppContext = createContext();
 
 function App() {
+  const {data, isLoading} = useQuery('loadContextUser', ()=>fetch('http://localhost:5000/finduser', {
+    method: 'GET',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("access_token")}`
+    }
+  })
+  .then(res=>res.json()))
+  
+  if(isLoading){
+    return <FullPageLoading></FullPageLoading>
+  }
   return (
     <div>
+      <AppContext.Provider value={data}>
       <Header></Header>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
@@ -58,6 +74,7 @@ function App() {
         <Route path="/myprofile" element={<MyProfile></MyProfile>}></Route>
       </Routes>
       <FooterMe></FooterMe>
+      </AppContext.Provider>
     </div>
   );
 }

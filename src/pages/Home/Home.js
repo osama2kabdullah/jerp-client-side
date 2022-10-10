@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../../App';
 import Bannar from './Bannar';
 import BusinessSummary from './BusinessSummary/BusinessSummary';
 import Header from './header/Header';
@@ -6,6 +7,7 @@ import Review from './Review/Review';
 import Tools from './Tools/Tools';
 
 const Home = () => {
+    const value = useContext(AppContext);
     return (
         <div>
             <Bannar></Bannar>

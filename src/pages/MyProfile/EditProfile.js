@@ -1,10 +1,66 @@
 import { Avatar } from "flowbite-react";
-import React from "react";
+import React, { useContext, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../App";
+import auth from "../../firebase.init";
 
 const EditProfile = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+  const [currentUser] = useAuthState(auth);
+  //user already name
+  const contextValue = useContext(AppContext);
+  const userAlredyName = contextValue?.doc?.UserName;
+  console.log(contextValue?.doc?.photoURL);
+  //navigate
+  const navigate = useNavigate();
+  //react hook form
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  
+  //submit data
+  const onSubmit = (data) => {
+    const IMGBB_POST_API_KEY = "9d41b12eb2ac9f38fce3206217aa2abf";
+    const { about, city, countryName, firstName, lastName, postalCode, state, street,
+    } = data;
+    const formData = new FormData();
+    formData.append("image", data?.file?.[0]);
+    const url = `https://api.imgbb.com/1/upload?key=${IMGBB_POST_API_KEY}`;
+    
+    //save img in imgbb
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        //assign essential data
+          const imgbbUrl = data?.data?.url;
+          const doc = { about, city, countryName, UserName: firstName + " " + lastName || currentUser?.displayName || userAlredyName, postalCode, state, street, photoURL: imgbbUrl || currentUser.photoURL,
+          };
+      
+      //save in our mongodb total data
+      fetch("http://localhost:5000/updateprofile", {
+      method: "PUT",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(doc),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if(data.acknowledged){
+          navigate('/myprofile')
+        }
+      });
+      });
+  };
+
   return (
     <div>
       <div>
@@ -30,19 +86,18 @@ const EditProfile = () => {
                     </label>
                     <div class="mt-1 flex items-center">
                       <Avatar
-                        img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                        img={contextValue?.doc?.photoURL}
                         size="xl"
                         rounded
                       />
                       <input
-                      {...register("file")}
+                        {...register("file")}
                         type="file"
                         class="ml-5 rounded-md border w-32 border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                       />
-                        
                     </div>
                   </div>
-                  
+
                   <div>
                     <label
                       for="about"
@@ -64,7 +119,6 @@ const EditProfile = () => {
                       Brief description for your profile. URLs are hyperlinked.
                     </p>
                   </div>
-                  
                 </div>
                 <div class="grid grid-cols-6 bg-white px-4 py-3 sm:px-6 gap-6">
                   <div class="col-span-6 sm:col-span-3">
@@ -96,7 +150,7 @@ const EditProfile = () => {
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
-                  
+
                   <div class="col-span-6 sm:col-span-3">
                     <label
                       for="country"
@@ -105,7 +159,7 @@ const EditProfile = () => {
                       Country
                     </label>
                     <select
-                    {...register("countryName")}
+                      {...register("countryName")}
                       autocomplete="country-name"
                       class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     >
