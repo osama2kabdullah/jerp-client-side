@@ -8,7 +8,7 @@ import useLoadTools from "../../shared/useLoadTools";
 import ToolsCard from "./ToolsCard";
 
 const Tools = () => {
-    const [tools, isLoading] = useLoadTools();
+    const {tools, isLoading} = useLoadTools();
     
     if(isLoading){
       return <FullPageLoading></FullPageLoading>

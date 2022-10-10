@@ -1,8 +1,8 @@
 import { Button, Modal, Table } from "flowbite-react";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
+import DeleteModal from "../../shared/DeleteModal";
 import FullPageLoading from "../../shared/FullPageLoading";
-import DeleteModal from "./DeleteModal";
 import TableRowMe from "./TableRowMe";
 
 const MyOrders = () => {

@@ -1,14 +1,26 @@
 import { Table } from 'flowbite-react';
-import React from 'react';
+import React, { useState } from 'react';
+import DeleteModal from '../../shared/DeleteModal';
 import FullPageLoading from '../../shared/FullPageLoading';
 import useLoadTools from '../../shared/useLoadTools';
-import DeleteModal from '../MyOrders/DeleteModal';
 import TableRowMe from '../MyOrders/TableRowMe';
 import ManageRowMe from './ManageRowMe';
 
 const ManageProducts = () => {
-    const [tools, isLoading] = useLoadTools();
-    console.log(tools);
+    const {tools, isLoading, refetch} = useLoadTools();
+    const [modal, setModal] = useState(false);
+    
+    const handleDelete = id => {
+      
+      fetch('http://localhost:5000/delete/'+id, {
+        method: 'DELETE'
+      })
+      .then(res=>res.json())
+      .then(data=>{
+        console.log(data);
+      })
+    }
+    
     if(isLoading){
       return <FullPageLoading></FullPageLoading>
     }
@@ -32,13 +44,13 @@ const ManageProducts = () => {
           {tools.map((tool) => (
             <>
             <ManageRowMe
-            // setModal={setModal}
+            setModal={setModal}
             tool={tool}></ManageRowMe>
             </>
           ))}
         </Table.Body>
       </Table>
-      {/* <DeleteModal refetch={refetch()} handleDelete={handleDelete} modal={modal} setModal={setModal}></DeleteModal> */}
+      <DeleteModal refetch={()=>refetch()} handleDelete={handleDelete} modal={modal} setModal={setModal}></DeleteModal>
     </div>
     );
 };

@@ -2,8 +2,7 @@ import { Avatar, Button, Table } from 'flowbite-react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ManageRowMe = ({tool}) => {
-    console.log(tool);
+const ManageRowMe = ({tool, setModal}) => {
     const {name, price, availableQty, picture, _id} = tool;
     return (
         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -25,7 +24,7 @@ const ManageRowMe = ({tool}) => {
         </Link>
       </Table.Cell>
       <Table.Cell>
-        <Button color="purple" size="xs">Remove</Button>
+        <Button onClick={()=>setModal(_id)} color="purple" size="xs">Remove</Button>
       </Table.Cell>
     </Table.Row>
     );

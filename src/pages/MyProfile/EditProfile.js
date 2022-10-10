@@ -8,6 +8,7 @@ import auth from "../../firebase.init";
 
 const EditProfile = () => {
   const [currentUser] = useAuthState(auth);
+  const [updating, setUpdating] = useState(false);
   //user already name
   const contextValue = useContext(AppContext);
   const userAlredyName = contextValue?.doc?.UserName;
@@ -24,6 +25,7 @@ const EditProfile = () => {
   
   //submit data
   const onSubmit = (data) => {
+    setUpdating(true);
     const IMGBB_POST_API_KEY = "9d41b12eb2ac9f38fce3206217aa2abf";
     const { about, city, countryName, firstName, lastName, postalCode, state, street,
     } = data;
@@ -55,6 +57,7 @@ const EditProfile = () => {
       .then((res) => res.json())
       .then((data) => {
         if(data.acknowledged){
+          setUpdating(false);
           navigate('/myprofile')
         }
       });

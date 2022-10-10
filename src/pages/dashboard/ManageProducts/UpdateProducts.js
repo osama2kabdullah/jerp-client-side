@@ -1,17 +1,19 @@
 import { Avatar } from "flowbite-react";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import FullPageLoading from "../../shared/FullPageLoading";
 
 const UpdateProducts = () => {
+  const [updating, setUpdating] = useState(false);
+  const navigate = useNavigate();
   // lload data
   const { id } = useParams();
   const { data, isLoading } = useQuery("loadAProduct", () =>
     fetch(`http://localhost:5000/product/${id}`).then((res) => res.json())
   );
-const {about, availableQty, minimumOrder, name, picture, price} = data;
+
   //form
   const {
     register,
@@ -19,7 +21,9 @@ const {about, availableQty, minimumOrder, name, picture, price} = data;
     watch,
     formState: { errors },
   } = useForm();
+  //form submit
   const onSubmit = (inputFormData) => {
+    setUpdating(true);
     const {about: ownAbout, minimumOrder: minimumOrderOwn, price: priceOwn, productName: productNameOwn, qty: qtyOwn } = inputFormData;
     
     const IMGBB_POST_API_KEY = "9d41b12eb2ac9f38fce3206217aa2abf";
@@ -35,7 +39,6 @@ const {about, availableQty, minimumOrder, name, picture, price} = data;
       const imgbbUrl = data?.data?.url;
       const doc = {about: ownAbout || about, availableQty: qtyOwn || availableQty, minimumOrder: minimumOrderOwn || minimumOrder, name: productNameOwn || name, picture: imgbbUrl || picture, price: priceOwn || price}
       
-      console.log('doc', doc);
       //update in db
       fetch('http://localhost:5000/updateproduct/'+id, {
         method: 'PUT',
@@ -47,6 +50,8 @@ const {about, availableQty, minimumOrder, name, picture, price} = data;
       .then(res=>res.json())
       .then(data=> {
         console.log(data);
+        setUpdating(false);
+        navigate('/dashboard/manageproducts')
       })
       
     })
@@ -56,9 +61,12 @@ const {about, availableQty, minimumOrder, name, picture, price} = data;
   if (isLoading) {
     return <FullPageLoading></FullPageLoading>;
   }
-
+  const {about, availableQty, minimumOrder, name, picture, price} = data;
   return (
     <div>
+      {
+        updating && <FullPageLoading></FullPageLoading>
+      }
       <div>
         <div class="md:grid md:grid-cols-2 md:gap-6">
           <div class="mt-5 md:col-span-2 mx-auto md:mt-0">

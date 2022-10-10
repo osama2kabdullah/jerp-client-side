@@ -12,7 +12,7 @@ const DeleteModal = ({setModal, modal, handleDelete, refetch}) => {
   <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
 </svg>
               <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                Are you sure you want to cancel this order?
+                Are you sure?
               </h3>
               <div className="flex justify-center gap-4">
                 <Button color="failure" 
