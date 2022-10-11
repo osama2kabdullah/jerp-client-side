@@ -1,31 +1,30 @@
-import { Table } from 'flowbite-react';
-import React, { useState } from 'react';
-import DeleteModal from '../../shared/DeleteModal';
-import FullPageLoading from '../../shared/FullPageLoading';
-import useLoadTools from '../../../hooks/useLoadTools';
-import TableRowMe from '../MyOrders/TableRowMe';
-import ManageRowMe from './ManageRowMe';
+import { Table } from "flowbite-react";
+import React, { useState } from "react";
+import DeleteModal from "../../shared/DeleteModal";
+import FullPageLoading from "../../shared/FullPageLoading";
+import useLoadTools from "../../../hooks/useLoadTools";
+import TableRowMe from "../MyOrders/TableRowMe";
+import ManageRowMe from "./ManageRowMe";
 
 const ManageProducts = () => {
-    const {tools, isLoading, refetch} = useLoadTools();
-    const [modal, setModal] = useState(false);
-    
-    const handleDelete = id => {
-      
-      fetch('http://localhost:5000/delete/'+id, {
-        method: 'DELETE'
-      })
-      .then(res=>res.json())
-      .then(data=>{
+  const { tools, isLoading, refetch } = useLoadTools();
+  const [modal, setModal] = useState(false);
+
+  const handleDelete = (id) => {
+    fetch("http://localhost:5000/delete/" + id, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
         console.log(data);
-      })
-    }
-    
-    if(isLoading){
-      return <FullPageLoading></FullPageLoading>
-    }
-    return (
-        <div>
+      });
+  };
+
+  if (isLoading) {
+    return <FullPageLoading></FullPageLoading>;
+  }
+  return (
+    <div>
       <h2 className="text-xl font-bold mb-4">Manage Products</h2>
       <Table striped={true}>
         <Table.Head>
@@ -43,16 +42,19 @@ const ManageProducts = () => {
         <Table.Body className="divide-y">
           {tools.map((tool) => (
             <>
-            <ManageRowMe
-            setModal={setModal}
-            tool={tool}></ManageRowMe>
+              <ManageRowMe setModal={setModal} tool={tool}></ManageRowMe>
             </>
           ))}
         </Table.Body>
       </Table>
-      <DeleteModal refetch={()=>refetch()} handleDelete={handleDelete} modal={modal} setModal={setModal}></DeleteModal>
+      <DeleteModal
+        refetch={() => refetch()}
+        handleDelete={handleDelete}
+        modal={modal}
+        setModal={setModal}
+      ></DeleteModal>
     </div>
-    );
+  );
 };
 
 export default ManageProducts;

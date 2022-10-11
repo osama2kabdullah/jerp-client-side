@@ -20,6 +20,7 @@ import FullPageLoading from "./pages/shared/FullPageLoading";
 import ManageProducts from "./pages/dashboard/ManageProducts/ManageProducts";
 import UpdateProducts from "./pages/dashboard/ManageProducts/UpdateProducts";
 import AddProducts from "./pages/dashboard/ManageProducts/AddProducts";
+import ManageOrders from "./pages/dashboard/ManageOrders/ManageOrders";
 
 export const AppContext = createContext();
 
@@ -65,6 +66,7 @@ function App() {
           <Route path="addreview" element={<AddReview></AddReview>}></Route>
           <Route path="addproduct" element={<AddProducts></AddProducts>}></Route>
           <Route path="manageproducts" element={<ManageProducts></ManageProducts>}></Route>
+          <Route path="manageorders" element={<ManageOrders></ManageOrders>}></Route>
           <Route path="manageproducts/updateproduct/:id" element={<UpdateProducts></UpdateProducts>}></Route>
         </Route>
         <Route
