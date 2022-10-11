@@ -21,6 +21,7 @@ import ManageProducts from "./pages/dashboard/ManageProducts/ManageProducts";
 import UpdateProducts from "./pages/dashboard/ManageProducts/UpdateProducts";
 import AddProducts from "./pages/dashboard/ManageProducts/AddProducts";
 import ManageOrders from "./pages/dashboard/ManageOrders/ManageOrders";
+import ManageUssers from "./pages/dashboard/ManageUsers/ManageUssers";
 
 export const AppContext = createContext();
 
@@ -67,6 +68,7 @@ function App() {
           <Route path="addproduct" element={<AddProducts></AddProducts>}></Route>
           <Route path="manageproducts" element={<ManageProducts></ManageProducts>}></Route>
           <Route path="manageorders" element={<ManageOrders></ManageOrders>}></Route>
+          <Route path="manageusers" element={<ManageUssers></ManageUssers>}></Route>
           <Route path="manageproducts/updateproduct/:id" element={<UpdateProducts></UpdateProducts>}></Route>
         </Route>
         <Route
