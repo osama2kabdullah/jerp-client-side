@@ -6,7 +6,7 @@ import FullPageLoading from "../../shared/FullPageLoading";
 import OrdersRowMe from "./OrdersRowMe";
 
 const ManageOrders = () => {
-    const {data, isLoading} = useQuery('allorders', ()=>fetch('http://localhost:5000/allorders').then(res=>res.json()));
+    const {data, isLoading} = useQuery('allorders', ()=>fetch('https://damp-reef-67167.herokuapp.com/allorders').then(res=>res.json()));
     
     if(isLoading){
         return <FullPageLoading></FullPageLoading>
