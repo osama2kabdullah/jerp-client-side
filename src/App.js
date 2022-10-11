@@ -19,6 +19,7 @@ import { useQuery } from "react-query";
 import FullPageLoading from "./pages/shared/FullPageLoading";
 import ManageProducts from "./pages/dashboard/ManageProducts/ManageProducts";
 import UpdateProducts from "./pages/dashboard/ManageProducts/UpdateProducts";
+import AddProducts from "./pages/dashboard/ManageProducts/AddProducts";
 
 export const AppContext = createContext();
 
@@ -62,6 +63,7 @@ function App() {
         >
           <Route path="" element={<MyOrders></MyOrders>}></Route>
           <Route path="addreview" element={<AddReview></AddReview>}></Route>
+          <Route path="addproduct" element={<AddProducts></AddProducts>}></Route>
           <Route path="manageproducts" element={<ManageProducts></ManageProducts>}></Route>
           <Route path="manageproducts/updateproduct/:id" element={<UpdateProducts></UpdateProducts>}></Route>
         </Route>

@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import FullPageLoading from "../../shared/FullPageLoading";
 import HeadTitle from "../../shared/HeadTitle";
 import LoadSpinner from "../../shared/LoadSpinner";
-import useLoadTools from "../../shared/useLoadTools";
+import useLoadTools from "../../../hooks/useLoadTools";
 import ToolsCard from "./ToolsCard";
 
 const Tools = () => {

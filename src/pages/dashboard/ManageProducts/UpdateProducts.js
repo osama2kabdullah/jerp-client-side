@@ -8,6 +8,7 @@ import FullPageLoading from "../../shared/FullPageLoading";
 const UpdateProducts = () => {
   const [updating, setUpdating] = useState(false);
   const navigate = useNavigate();
+  
   // lload data
   const { id } = useParams();
   const { data, isLoading } = useQuery("loadAProduct", () =>
@@ -26,15 +27,17 @@ const UpdateProducts = () => {
     setUpdating(true);
     const {about: ownAbout, minimumOrder: minimumOrderOwn, price: priceOwn, productName: productNameOwn, qty: qtyOwn } = inputFormData;
     
+    
     const IMGBB_POST_API_KEY = "9d41b12eb2ac9f38fce3206217aa2abf";
     const formData = new FormData();
-    formData.append("uploadProductImage", inputFormData?.file?.[0]);
+    formData.append("image", inputFormData?.file?.[0]);
     const url = `https://api.imgbb.com/1/upload?key=${IMGBB_POST_API_KEY}`;
+    //save img in imgbb
     fetch(url, {
       method: "POST",
       body: formData,
     })
-    .then(res=>res.json())
+    .then((res) => res.json())
     .then(data=>{
       const imgbbUrl = data?.data?.url;
       const doc = {about: ownAbout || about, availableQty: qtyOwn || availableQty, minimumOrder: minimumOrderOwn || minimumOrder, name: productNameOwn || name, picture: imgbbUrl || picture, price: priceOwn || price}
@@ -49,7 +52,6 @@ const UpdateProducts = () => {
       })
       .then(res=>res.json())
       .then(data=> {
-        console.log(data);
         setUpdating(false);
         navigate('/dashboard/manageproducts')
       })

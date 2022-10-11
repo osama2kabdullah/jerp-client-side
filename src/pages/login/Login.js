@@ -8,7 +8,7 @@ import {
   useAuthState,
 } from "react-firebase-hooks/auth";
 import FullPageLoading from "../shared/FullPageLoading";
-import useGetToken from "../shared/useGetToken";
+import useGetToken from "../../hooks/useGetToken";
 
 const Login = () => {
   const [token, setToken] = useState("");

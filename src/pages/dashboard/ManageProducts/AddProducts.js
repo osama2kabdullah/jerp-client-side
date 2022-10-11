@@ -1,36 +1,25 @@
 import { Avatar } from "flowbite-react";
-import React, { useContext, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../../App";
-import auth from "../../firebase.init";
+import FullPageLoading from "../../shared/FullPageLoading";
 
-const EditProfile = () => {
-  const [currentUser] = useAuthState(auth);
-  const [updating, setUpdating] = useState(false);
-  //user already name
-  const contextValue = useContext(AppContext);
-  const userAlredyName = contextValue?.doc?.UserName;
-  console.log(contextValue?.doc?.photoURL);
-  //navigate
+const AddProducts = () => {
+    const [uploaing, setUploaing] = useState(false);
   const navigate = useNavigate();
-  //react hook form
+  //form
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-  
-  //submit data
-  const onSubmit = (data) => {
-    setUpdating(true);
+  //form submit
+  const onSubmit = (inputFormData) => {
+    setUploaing(true)
     const IMGBB_POST_API_KEY = "9d41b12eb2ac9f38fce3206217aa2abf";
-    const { about, city, countryName, firstName, lastName, postalCode, state, street,
-    } = data;
     const formData = new FormData();
-    formData.append("image", data?.file?.[0]);
+    formData.append("image", inputFormData?.file?.[0]);
     const url = `https://api.imgbb.com/1/upload?key=${IMGBB_POST_API_KEY}`;
     //save img in imgbb
     fetch(url, {
@@ -39,46 +28,28 @@ const EditProfile = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        //assign essential data
-          const imgbbUrl = data?.data?.url;
-          const doc = { about, city, countryName, UserName: firstName + " " + lastName || currentUser?.displayName || userAlredyName, postalCode, state, street, photoURL: imgbbUrl || currentUser.photoURL,
-          };
-      
-      //save in our mongodb total data
-      fetch("https://damp-reef-67167.herokuapp.com/updateprofile", {
-      method: "PUT",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(doc),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if(data.acknowledged){
-          setUpdating(false);
-          navigate('/myprofile')
-        }
-      });
+        inputFormData.picture = data?.data?.url
+        fetch('http://localhost:5000/addnewproduct', {
+            method: 'POST',
+            headers: {
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(inputFormData)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            setUploaing(false);
+            navigate('/dashboard/manageproducts')
+        })
+        
       });
   };
-
   return (
     <div>
+      {uploaing && <FullPageLoading></FullPageLoading>}
       <div>
-        <div class="md:grid md:grid-cols-3 md:gap-6">
-          <div class="md:col-span-1">
-            <div class="px-4 sm:px-0">
-              <h3 class="text-lg font-medium leading-6 text-gray-900">
-                Profile
-              </h3>
-              <p class="mt-1 text-sm text-gray-600">
-                This information will be displayed publicly so be careful what
-                you share.
-              </p>
-            </div>
-          </div>
-          <div class="mt-5 md:col-span-2 md:mt-0">
+        <div class="md:grid md:grid-cols-2 md:gap-6">
+          <div class="mt-5 md:col-span-2 mx-auto md:mt-0">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div class="shadow sm:overflow-hidden sm:rounded-md">
                 <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
@@ -87,11 +58,7 @@ const EditProfile = () => {
                       Photo
                     </label>
                     <div class="mt-1 flex items-center">
-                      <Avatar
-                        img={contextValue?.doc?.photoURL}
-                        size="xl"
-                        rounded
-                      />
+                      <Avatar img="" size="xl" rounded />
                       <input
                         {...register("file")}
                         type="file"
@@ -105,7 +72,7 @@ const EditProfile = () => {
                       for="about"
                       class="block text-sm font-medium text-gray-700"
                     >
-                      About
+                      Product Description
                     </label>
                     <div class="mt-1">
                       <textarea
@@ -118,69 +85,22 @@ const EditProfile = () => {
                       ></textarea>
                     </div>
                     <p class="mt-2 text-sm text-gray-500">
-                      Brief description for your profile. URLs are hyperlinked.
+                      Brief description for your product.
                     </p>
                   </div>
                 </div>
+
                 <div class="grid grid-cols-6 bg-white px-4 py-3 sm:px-6 gap-6">
-                  <div class="col-span-6 sm:col-span-3">
-                    <label
-                      for="first-name"
-                      class="block text-sm font-medium text-gray-700"
-                    >
-                      First name
-                    </label>
-                    <input
-                      type="text"
-                      {...register("firstName")}
-                      autocomplete="given-name"
-                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-
-                  <div class="col-span-6 sm:col-span-3">
-                    <label
-                      for="last-name"
-                      class="block text-sm font-medium text-gray-700"
-                    >
-                      Last name
-                    </label>
-                    <input
-                      type="text"
-                      {...register("lastName")}
-                      autocomplete="family-name"
-                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-
-                  <div class="col-span-6 sm:col-span-3">
-                    <label
-                      for="country"
-                      class="block text-sm font-medium text-gray-700"
-                    >
-                      Country
-                    </label>
-                    <select
-                      {...register("countryName")}
-                      autocomplete="country-name"
-                      class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    >
-                      <option>United States</option>
-                      <option>Canada</option>
-                      <option>Mexico</option>
-                    </select>
-                  </div>
-
                   <div class="col-span-6">
                     <label
                       for="street-address"
                       class="block text-sm font-medium text-gray-700"
                     >
-                      Street address
+                      Product Name
                     </label>
                     <input
                       type="text"
-                      {...register("street")}
+                      {...register("name")}
                       autocomplete="street-address"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
@@ -191,11 +111,11 @@ const EditProfile = () => {
                       for="city"
                       class="block text-sm font-medium text-gray-700"
                     >
-                      City
+                      Qty
                     </label>
                     <input
-                      type="text"
-                      {...register("city")}
+                      type="number"
+                      {...register("availableQty")}
                       autocomplete="address-level2"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
@@ -206,11 +126,11 @@ const EditProfile = () => {
                       for="region"
                       class="block text-sm font-medium text-gray-700"
                     >
-                      State / Province
+                      Price
                     </label>
                     <input
-                      type="text"
-                      {...register("state")}
+                      type="number"
+                      {...register("price")}
                       autocomplete="address-level1"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
@@ -221,11 +141,11 @@ const EditProfile = () => {
                       for="postal-code"
                       class="block text-sm font-medium text-gray-700"
                     >
-                      ZIP / Postal code <small>(optional)</small>
+                      Minimum order qty
                     </label>
                     <input
-                      type="text"
-                      {...register("postalCode")}
+                      type="number"
+                      {...register("minimumOrder")}
                       autocomplete="postal-code"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
@@ -248,4 +168,4 @@ const EditProfile = () => {
   );
 };
 
-export default EditProfile;
+export default AddProducts;
