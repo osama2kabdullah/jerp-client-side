@@ -17,7 +17,6 @@ const MyOrders = () => {
       },
     }).then((res) => res.json())
   );
-  console.log(data);
   if (isLoading) {
     return <FullPageLoading></FullPageLoading>;
   }
@@ -62,7 +61,7 @@ const MyOrders = () => {
           ))}
         </Table.Body>
       </Table>
-      <DeleteModal refetch={refetch()} handleDelete={handleDelete} modal={modal} setModal={setModal}></DeleteModal>
+      <DeleteModal refetch={refetch} handleDelete={handleDelete} modal={modal} setModal={setModal}></DeleteModal>
     </div>
   );
 };
