@@ -4,7 +4,7 @@ import NotFoundPage from './NotFoundPage';
 
 const RequireNonAdmin = ({children}) => {
     const value = useContext(AppContext);
-    const admin = value.doc.role === "admin";
+    const admin = value?.doc?.role === "admin";
     if(!admin){
         return children;
     }

@@ -1,5 +1,6 @@
 import { Button, Table } from "flowbite-react";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const TableRowMe = ({ order, setModal }) => {
   const { productName, productQuantity, totalPrice } = order;
@@ -19,7 +20,8 @@ const TableRowMe = ({ order, setModal }) => {
         </button>
       </Table.Cell>
       <Table.Cell>
-        <Button color="purple" size="xs">Pay</Button>
+        <Link to={'/checkout/'+totalPrice}><Button color="purple" size="xs">Pay</Button></Link>
+        
       </Table.Cell>
     </Table.Row>
   );

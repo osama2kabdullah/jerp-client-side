@@ -25,6 +25,8 @@ import ManageUssers from "./pages/dashboard/ManageUsers/ManageUssers";
 import RequireAdmin from "./pages/shared/RequireAdmin";
 import RequireNonAdmin from "./pages/shared/RequireNonAdmin";
 import NotFoundPage from "./pages/shared/NotFoundPage";
+import PaymentPage from "./pages/dashboard/MyOrders/PaymentPage";
+import AboutMe from "./pages/Protfolio/AboutMe";
 
 export const AppContext = createContext();
 
@@ -42,7 +44,7 @@ function App() {
   //set dynamic path
   useEffect(()=> {
     if (data) {
-      const admin = data.doc.role === "admin";
+      const admin = data?.doc?.role === "admin";
       if (admin) {
         setNonAdminPath('myorders');
         setAdminPath('');
@@ -59,7 +61,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/login" element={<Login></Login>}></Route>
+          <Route path="/aboutme" element={<AboutMe></AboutMe>}></Route>
           <Route path="/signup" element={<SignUp></SignUp>}></Route>
+          <Route path="/checkout/:productprice" element={<PaymentPage></PaymentPage>}></Route>
           <Route
             path="/forgotpassword"
             element={<FogotPass></FogotPass>}

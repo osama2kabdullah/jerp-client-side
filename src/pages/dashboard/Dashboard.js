@@ -37,7 +37,7 @@ const Dashboard = () => {
           {/* <!-- Sidebar content here --> */}
           <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
 
-          {value.doc.role === "admin" || (
+          {value?.doc?.role === "admin" || (
             <>
               <li>
                 <Link to="/dashboard">My Orders</Link>
@@ -47,7 +47,7 @@ const Dashboard = () => {
               </li>
             </>
           )}
-          {value.doc.role === "admin" && (
+          {value?.doc?.role === "admin" && (
             <>
               <li>
                 <Link to="/dashboard">Manage Products</Link>
