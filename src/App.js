@@ -27,6 +27,7 @@ import RequireNonAdmin from "./pages/shared/RequireNonAdmin";
 import NotFoundPage from "./pages/shared/NotFoundPage";
 import PaymentPage from "./pages/dashboard/MyOrders/PaymentPage";
 import AboutMe from "./pages/Protfolio/AboutMe";
+import Blogs from "./pages/Blogs/Blogs";
 
 export const AppContext = createContext();
 
@@ -63,6 +64,7 @@ function App() {
           <Route path="/login" element={<Login></Login>}></Route>
           <Route path="/aboutme" element={<AboutMe></AboutMe>}></Route>
           <Route path="/signup" element={<SignUp></SignUp>}></Route>
+          <Route path="/blogs" element={<Blogs></Blogs>}></Route>
           <Route path="/checkout/:productprice" element={<PaymentPage></PaymentPage>}></Route>
           <Route
             path="/forgotpassword"
