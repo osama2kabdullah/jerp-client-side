@@ -1,2 +1,5 @@
-## issue
-1. when you logged in you can go to login page again..you shoudnt it -- solve this issue
+# Jerp - a manufacturer company in shiromoni
+### [Click to go this site!](https://jerpmanufacturer-osama.netlify.app/)
+
+---
+adding description ...
