@@ -71,10 +71,6 @@ function App() {
             element={<FogotPass></FogotPass>}
           ></Route>
           <Route
-            path="/forgotpassword"
-            element={<FogotPass></FogotPass>}
-          ></Route>
-          <Route
             path="/productdetail/:id"
             element={
               <RequirAuth>
@@ -139,7 +135,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="manageproducts/updateproduct/:id"
+              path="updateproduct/:id"
               element={
                 <RequireAdmin>
                   <UpdateProducts></UpdateProducts>

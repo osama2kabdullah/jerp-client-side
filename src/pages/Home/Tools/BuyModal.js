@@ -1,18 +1,29 @@
 import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import FullPageLoading from "../../shared/FullPageLoading";
 
 const BuyModal = ({ modal, setModal, product }) => {
-  const { availableQty, name, minimumOrder, price } = product;
-
+  const navigate = useNavigate();
+  const { availableQty, name, minimumOrder, price, _id } = product;
   const [orderQty, setOrderQty] = useState(minimumOrder);
+  const [ordering, setOrdering] = useState(false);
 
+  
   const handleConfirmOrder = (e) => {
+    setOrdering(true);
     e.preventDefault();
     const productQuantity = e.target.qty.value;
     const totalPrice = e.target.totalPrice.value;
     const shippingAddress = e.target.shippingAddress.value;
     const phoneNumber = e.target.phoneNumber.value;
-    const doc = { productQuantity, totalPrice, productName: name, shippingAddress, phoneNumber };
+    const doc = {
+      productQuantity,
+      totalPrice,
+      productName: name,
+      shippingAddress,
+      phoneNumber,
+    };
     fetch("http://localhost:5000/makeOrder", {
       method: "POST",
       headers: {
@@ -23,16 +34,25 @@ const BuyModal = ({ modal, setModal, product }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.success) {
-          setModal(false);
-        }
+        const newProductAvailable = parseInt(availableQty) - parseInt(productQuantity);
+        fetch("http://localhost:5000/decreaseproductquantity/" + _id, {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+          body: JSON.stringify({ newProductAvailable }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          });
+        setOrdering(false);
+        setModal(false);
+        navigate('/dashboard')
       });
   };
-
-  console.log('availableQty', availableQty);
-  console.log('orderQty', orderQty);
-  console.log(availableQty < parseInt(orderQty));
-  
+  console.log("ordering", ordering);
   return (
     <React.Fragment>
       <Modal
@@ -41,6 +61,7 @@ const BuyModal = ({ modal, setModal, product }) => {
         popup={true}
         onClose={() => setModal(false)}
       >
+        {ordering && <FullPageLoading></FullPageLoading>}
         <Modal.Header />
         <Modal.Body>
           <div className="space-y-6 pb-4 sm:pb-6  xl:pb-8">
@@ -53,28 +74,35 @@ const BuyModal = ({ modal, setModal, product }) => {
                 Available: {availableQty}
               </h2>
               <div class="flex flex-wrap  mb-6">
-                
                 {/* -------------------------- */}
                 <label
-                      class=" w-full block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                      for="grid-password"
-                    >
-                      Shipping Address
-                    </label>
-                    <input type="text" name="shippingAddress" placeholder="Address" className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-full" />
-                    
-                    
-                    {/* -------------------------------- */}
+                  class=" w-full block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  for="grid-password"
+                >
+                  Shipping Address
+                </label>
+                <input
+                  type="text"
+                  name="shippingAddress"
+                  placeholder="Address"
+                  className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-full"
+                />
+
+                {/* -------------------------------- */}
                 <label
-                      class=" w-full block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                      for="grid-password"
-                    >
-                      Phone Number
-                    </label>
-                    <input type="text" name="phoneNumber" placeholder="Phone number" className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-full" />
+                  class=" w-full block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  for="grid-password"
+                >
+                  Phone Number
+                </label>
+                <input
+                  type="text"
+                  name="phoneNumber"
+                  placeholder="Phone number"
+                  className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-full"
+                />
 
-
-{/* ------------------------ */}
+                {/* ------------------------ */}
                 <div class="w-full md:w-1/2 mb-6 md:mb-0">
                   <label
                     class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -116,7 +144,10 @@ const BuyModal = ({ modal, setModal, product }) => {
                 )}
               </div>
               <Button
-                disabled={availableQty < parseInt(orderQty) || minimumOrder > parseInt(orderQty)}
+                disabled={
+                  availableQty < parseInt(orderQty) ||
+                  minimumOrder > parseInt(orderQty)
+                }
               >
                 {" "}
                 <button type="submit">Confirm Order</button>{" "}

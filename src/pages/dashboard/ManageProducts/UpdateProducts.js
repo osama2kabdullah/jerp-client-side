@@ -54,7 +54,7 @@ const UpdateProducts = () => {
       .then(res=>res.json())
       .then(data=> {
         setUpdating(false);
-        navigate('/dashboard/manageproducts')
+        navigate('/dashboard')
       })
       
     })
