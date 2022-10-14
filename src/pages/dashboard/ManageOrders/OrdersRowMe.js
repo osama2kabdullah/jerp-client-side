@@ -8,7 +8,12 @@ const OrdersRowMe = ({product}) => {
     const [user, setUser] = useState({});
     //find user
     useEffect(()=>{
-        fetch('http://localhost:5000/finduser/'+Useremail)
+        fetch('http://localhost:5000/finduser/'+Useremail, {
+          method: 'GET',
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('access_token')}`
+          }
+        })
     .then(res=>res.json())
     .then(data=>{
         setUser(data.doc)

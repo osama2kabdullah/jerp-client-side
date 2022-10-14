@@ -29,6 +29,10 @@ const BuyModal = ({ modal, setModal, product }) => {
       });
   };
 
+  console.log('availableQty', availableQty);
+  console.log('orderQty', orderQty);
+  console.log(availableQty < parseInt(orderQty));
+  
   return (
     <React.Fragment>
       <Modal
@@ -98,21 +102,21 @@ const BuyModal = ({ modal, setModal, product }) => {
                   <input
                     disabled
                     name="totalPrice"
-                    value={`${(price * orderQty || 0).toFixed(2)}`}
+                    value={`${(price * parseInt(orderQty) || 0).toFixed(2)}`}
                     className="text-xl font-bold mt-4"
                   />
                 </div>
-                {availableQty < orderQty && (
+                {availableQty < parseInt(orderQty) && (
                   <small className="text-red-500">Out of stock</small>
                 )}
-                {minimumOrder > orderQty && (
+                {minimumOrder > parseInt(orderQty) && (
                   <small className="text-red-500">
                     Minimum order {minimumOrder}
                   </small>
                 )}
               </div>
               <Button
-                disabled={availableQty < orderQty || minimumOrder > orderQty}
+                disabled={availableQty < parseInt(orderQty) || minimumOrder > parseInt(orderQty)}
               >
                 {" "}
                 <button type="submit">Confirm Order</button>{" "}
