@@ -13,7 +13,7 @@ const BuyModal = ({ modal, setModal, product }) => {
     const shippingAddress = e.target.shippingAddress.value;
     const phoneNumber = e.target.phoneNumber.value;
     const doc = { productQuantity, totalPrice, productName: name, shippingAddress, phoneNumber };
-    fetch("https://damp-reef-67167.herokuapp.com/makeOrder", {
+    fetch("http://localhost:5000/makeOrder", {
       method: "POST",
       headers: {
         authorization: `Bearer ${localStorage.getItem("access_token")}`,

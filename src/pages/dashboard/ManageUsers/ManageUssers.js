@@ -9,20 +9,27 @@ import UsersRowMe from "./UsersRowMe";
 const ManageUssers = () => {
   const [modal, setModal] = useState(false);
   const { data: users, isLoading, refetch } = useQuery("allusers", () =>
-    fetch("https://damp-reef-67167.herokuapp.com/allusers").then((res) => res.json())
+    fetch("http://localhost:5000/allusers", {
+      method: 'GET',
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('access_token')}`
+      }
+    }).then((res) => res.json())
   );
   
   const handleMakeAdmin = (id) => {
-    fetch('https://damp-reef-67167.herokuapp.com/takeactionforuser/'+id, {
+    fetch('http://localhost:5000/takeactionforuser/'+id, {
         method: 'PUT',
         headers: {
-            'content-type':'application/json'
+            'content-type':'application/json',
+            authorization: `Bearer ${localStorage.getItem('access_token')}`
         },
         body:  JSON.stringify({role:'admin'})
     })
     .then(res=>res.json())
     .then(data=>{
         console.log(data);
+        refetch();
     })
   }
   
@@ -61,7 +68,7 @@ const ManageUssers = () => {
           ))}
         </Table.Body>
       </Table>
-      <MakeAdminModal refetch={refetch} handleDelete={handleMakeAdmin} modal={modal} setModal={setModal}></MakeAdminModal>
+      <MakeAdminModal handleDelete={handleMakeAdmin} modal={modal} setModal={setModal}></MakeAdminModal>
     </div>
   );
 };

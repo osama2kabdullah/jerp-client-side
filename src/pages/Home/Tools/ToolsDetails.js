@@ -17,7 +17,7 @@ const ToolsDetails = () => {
   const [modal, setModal] = useState(false);
 
   const { data: product, isLoading } = useQuery(["loadOneProduct", id], () =>
-    fetch(`https://damp-reef-67167.herokuapp.com/productdetail/${id}`).then((res) => res.json())
+    fetch(`http://localhost:5000/productdetail/${id}`).then((res) => res.json())
   );
 
   if (isLoading) {

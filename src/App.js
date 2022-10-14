@@ -35,7 +35,7 @@ function App() {
   const [nonAdminPath, setNonAdminPath] = useState("");
   const [adminPath, setAdminPath] = useState("manageproducts");
   const { data, isLoading } = useQuery("loadContextUser", () =>
-    fetch("https://damp-reef-67167.herokuapp.com/finduser", {
+    fetch("http://localhost:5000/finduser", {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("access_token")}`,

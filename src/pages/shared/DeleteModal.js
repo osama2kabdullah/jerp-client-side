@@ -1,7 +1,7 @@
 import { Button, Modal } from 'flowbite-react';
 import React from 'react';
 
-const DeleteModal = ({setModal, modal, handleDelete, refetch}) => {
+const DeleteModal = ({setModal, modal, handleDelete}) => {
     return (
         <React.Fragment>
         <Modal show={modal} size="md" popup={true} onClose={() => setModal(false)}>
@@ -19,7 +19,6 @@ const DeleteModal = ({setModal, modal, handleDelete, refetch}) => {
                 onClick={()=>{
                     setModal(false)
                     handleDelete(modal);
-                    refetch();
                 }}
                 >
                   Yes, I'm sure

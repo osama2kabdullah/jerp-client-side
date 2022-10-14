@@ -11,12 +11,16 @@ const ManageProducts = () => {
   const [modal, setModal] = useState(false);
 
   const handleDelete = (id) => {
-    fetch("https://damp-reef-67167.herokuapp.com/delete/" + id, {
+    fetch("http://localhost:5000/delete/" + id, {
       method: "DELETE",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('access_token')}`
+      }
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        refetch();
       });
   };
 
@@ -48,7 +52,6 @@ const ManageProducts = () => {
         </Table.Body>
       </Table>
       <DeleteModal
-        refetch={() => refetch()}
         handleDelete={handleDelete}
         modal={modal}
         setModal={setModal}

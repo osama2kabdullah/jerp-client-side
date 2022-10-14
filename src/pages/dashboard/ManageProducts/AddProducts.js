@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import FullPageLoading from "../../shared/FullPageLoading";
+import HeadTitle from "../../shared/HeadTitle";
 
 const AddProducts = () => {
     const [uploaing, setUploaing] = useState(false);
@@ -29,17 +30,18 @@ const AddProducts = () => {
       .then((res) => res.json())
       .then((data) => {
         inputFormData.picture = data?.data?.url
-        fetch('https://damp-reef-67167.herokuapp.com/addnewproduct', {
+        fetch('http://localhost:5000/addnewproduct', {
             method: 'POST',
             headers: {
-                'content-type':'application/json'
+                'content-type':'application/json',
+                authorization: `Bearer ${localStorage.getItem('access_token')}`
             },
             body: JSON.stringify(inputFormData)
         })
         .then(res=>res.json())
         .then(data=>{
             setUploaing(false);
-            navigate('/dashboard/manageproducts')
+            navigate('/dashboard')
         })
         
       });
@@ -47,6 +49,7 @@ const AddProducts = () => {
   return (
     <div>
       {uploaing && <FullPageLoading></FullPageLoading>}
+      <HeadTitle>Add new Products</HeadTitle>
       <div>
         <div class="md:grid md:grid-cols-2 md:gap-6">
           <div class="mt-5 md:col-span-2 mx-auto md:mt-0">

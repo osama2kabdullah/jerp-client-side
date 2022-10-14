@@ -6,19 +6,22 @@ import FullPageLoading from "../../shared/FullPageLoading";
 import OrdersRowMe from "./OrdersRowMe";
 
 const ManageOrders = () => {
-    const {data, isLoading} = useQuery('allorders', ()=>fetch('https://damp-reef-67167.herokuapp.com/allorders').then(res=>res.json()));
+    const {data, isLoading} = useQuery('allorders', ()=>fetch('http://localhost:5000/allorders', {
+      method: 'GET',
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('access_token')}`
+      }
+    }).then(res=>res.json()));
     
     if(isLoading){
         return <FullPageLoading></FullPageLoading>
     }
-    console.log(data);
     const products = [];
-    data.forEach(element => {
+    data?.forEach(element => {
         element.orderlist.forEach(order=>{
             products.push({Useremail: element.Useremail ,order});
         })
     });
-    console.log(products);
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">Manage Products</h2>
