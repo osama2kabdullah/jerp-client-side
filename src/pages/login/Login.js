@@ -10,6 +10,7 @@ import {
 } from "react-firebase-hooks/auth";
 import FullPageLoading from "../shared/FullPageLoading";
 import useGetToken from "../../hooks/useGetToken";
+import HelemetMe from "../shared/HelemetMe";
 
 const Login = () => {
   const [token, setToken] = useState("");
@@ -56,6 +57,15 @@ const Login = () => {
   return (
     <section class="bg-gray-50 py-12 dark:bg-gray-900">
       {loading && <FullPageLoading></FullPageLoading>}
+      <HelemetMe>Login</HelemetMe>
+      <div className="p-8 rounded-xl bg-yellow-100 w-fit">
+      <b>Admin email</b>: admin@jerp.com <br />
+      <b>Admin password</b>: 6uzZ90MwfXU$
+      <br /><br />
+      <b>User email</b>: user@jerp.com<br />
+      <b>User password</b>: N3N5062A2Id@
+      </div>
+      
       <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
         <Link
           to="/"

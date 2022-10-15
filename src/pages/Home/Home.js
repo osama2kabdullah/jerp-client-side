@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../../App';
+import HelemetMe from '../shared/HelemetMe';
 import Bannar from './Bannar';
 import BusinessSummary from './BusinessSummary/BusinessSummary';
 import Header from './header/Header';
@@ -10,6 +11,7 @@ const Home = () => {
     const {data} = useContext(AppContext);
     return (
         <div>
+            <HelemetMe>Home</HelemetMe>
             <Bannar></Bannar>
             <Tools></Tools>
             <BusinessSummary></BusinessSummary>

@@ -5,6 +5,7 @@ import FullPageLoading from "../../shared/FullPageLoading";
 import useLoadTools from "../../../hooks/useLoadTools";
 import TableRowMe from "../MyOrders/TableRowMe";
 import ManageRowMe from "./ManageRowMe";
+import HelemetMe from "../../shared/HelemetMe";
 
 const ManageProducts = () => {
   const { tools, isLoading, refetch } = useLoadTools();
@@ -28,6 +29,7 @@ const ManageProducts = () => {
   }
   return (
     <div>
+      <HelemetMe>Manage product</HelemetMe>
       <h2 className="text-xl font-bold mb-4">Manage Products</h2>
       <Table striped={true}>
         <Table.Head>

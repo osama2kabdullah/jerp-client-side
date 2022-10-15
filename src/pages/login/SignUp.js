@@ -9,6 +9,7 @@ import AltLogin from "./AltLogin";
 import auth from "../../firebase.init";
 import FullPageLoading from "../shared/FullPageLoading";
 import log from "../../assests/images/log.png";
+import HelemetMe from "../shared/HelemetMe";
 
 const SignUp = () => {
   const [passMatch, setPassMatch] = useState("");
@@ -75,6 +76,7 @@ const SignUp = () => {
 
   return (
     <section class="bg-gray-50 py-12 dark:bg-gray-900">
+      <HelemetMe>Sign up</HelemetMe>
       {loading && <FullPageLoading></FullPageLoading>}
       <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
         <Link

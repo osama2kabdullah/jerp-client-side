@@ -2,6 +2,7 @@ import { Sidebar } from "flowbite-react";
 import React, { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { AppContext } from "../../App";
+import HelemetMe from "../shared/HelemetMe";
 
 const Dashboard = () => {
   const {data} = useContext(AppContext);

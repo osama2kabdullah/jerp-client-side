@@ -2,6 +2,7 @@ import { Button } from "flowbite-react";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../App";
+import HelemetMe from "../shared/HelemetMe";
 
 const MyProfile = () => {
   const { data } = useContext(AppContext);
@@ -10,6 +11,7 @@ const MyProfile = () => {
 
   return (
     <section class="pt-16 bg-blueGray-50">
+      <HelemetMe>My profile</HelemetMe>
       <div class="w-full lg:w-10/12 px-4 mx-auto">
         <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
           <button className="absolute top-4 right-4">

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../App";
 import auth from "../../firebase.init";
+import HelemetMe from "../shared/HelemetMe";
 
 const EditProfile = () => {
   const [currentUser] = useAuthState(auth);
@@ -83,6 +84,7 @@ const EditProfile = () => {
 
   return (
     <div>
+      <HelemetMe>Edit profile</HelemetMe>
       <div>
         <div class="md:grid md:grid-cols-3 md:gap-6">
           <div class="md:col-span-1">

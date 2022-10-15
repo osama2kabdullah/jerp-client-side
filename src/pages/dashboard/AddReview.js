@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import HelemetMe from "../shared/HelemetMe";
 
 const AddReview = () => {
     const [ratings, setRatings] = useState(1);
@@ -22,6 +23,7 @@ const AddReview = () => {
     }
   return (
     <div class="block p-6 mx-auto rounded-lg shadow-lg bg-white max-w-sm">
+      <HelemetMe>Add a review</HelemetMe>
       <h1 className="text-center text-2xl font-bold mb-8">Add a Review</h1>
       <form onSubmit={handleReviewSubmit}>
         <div className="flex gap-8 mb-5">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import HelemetMe from '../shared/HelemetMe';
 
 const Settings = () => {
     return (

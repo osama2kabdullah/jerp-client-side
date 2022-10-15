@@ -1,9 +1,11 @@
 import { Card } from "flowbite-react";
 import React from "react";
+import HelemetMe from "../shared/HelemetMe";
 
 const Blogs = () => {
   return (
     <div className="grid gap-6 lg:mx-32 mx-4 my-12">
+      <HelemetMe>Blogs</HelemetMe>
         <h1>Answering some qoustions</h1>
       <Card>
         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">

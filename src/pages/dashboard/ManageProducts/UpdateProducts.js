@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import FullPageLoading from "../../shared/FullPageLoading";
+import HelemetMe from "../../shared/HelemetMe";
 
 const UpdateProducts = () => {
   const [updating, setUpdating] = useState(false);
@@ -67,6 +68,7 @@ const UpdateProducts = () => {
   const {about, availableQty, minimumOrder, name, picture, price} = data;
   return (
     <div>
+      <HelemetMe>{name} update</HelemetMe>
       {
         updating && <FullPageLoading></FullPageLoading>
       }

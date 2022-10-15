@@ -8,7 +8,7 @@ const Navlinks = () => {
       <Navbar><CustomLink to='/'>Home</CustomLink></Navbar>
       <Navbar><CustomLink to='/aboutme'>About me</CustomLink></Navbar>
       <Navbar><CustomLink to='/blogs'>Blogs</CustomLink></Navbar>
-      <Navbar><CustomLink to='/'>Contact</CustomLink></Navbar>
+      <Navbar><CustomLink to='/useageexpamle'>Usage example</CustomLink></Navbar>
     </Navbar.Collapse>
   );
 };

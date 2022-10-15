@@ -10,10 +10,12 @@ import drjhatka from "../../assests/images/drjhatka.png";
 import emajohn from "../../assests/images/emajohn.png";
 import kabirsInventory from "../../assests/images/kabirsInventory.png";
 import redOnion from "../../assests/images/redOnion.png";
+import HelemetMe from "../shared/HelemetMe";
 
 const AboutMe = () => {
   return (
     <section class="pt-16 bg-blueGray-50">
+      <HelemetMe>About me</HelemetMe>
       <div class="w-full lg:w-11/12 px-4 mx-auto">
         <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
           <div class="px-6">

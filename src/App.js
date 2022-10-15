@@ -29,6 +29,7 @@ import PaymentPage from "./pages/dashboard/MyOrders/PaymentPage";
 import AboutMe from "./pages/Protfolio/AboutMe";
 import Blogs from "./pages/Blogs/Blogs";
 import useCheckAdmin from "./hooks/useCheckAdmin";
+import UsageExample from "./pages/UsageExample";
 
 export const AppContext = createContext();
 
@@ -66,6 +67,7 @@ function App() {
           <Route path="/login" element={<Login></Login>}></Route>
           <Route path="/aboutme" element={<AboutMe></AboutMe>}></Route>
           <Route path="/signup" element={<SignUp></SignUp>}></Route>
+          <Route path="/useageexpamle" element={<UsageExample></UsageExample>}></Route>
           <Route path="/blogs" element={<Blogs></Blogs>}></Route>
           <Route path="/checkout/:productprice" element={<PaymentPage></PaymentPage>}></Route>
           <Route

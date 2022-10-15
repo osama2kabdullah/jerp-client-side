@@ -2,6 +2,7 @@ import { Table } from "flowbite-react";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import FullPageLoading from "../../shared/FullPageLoading";
+import HelemetMe from "../../shared/HelemetMe";
 import TableRowMe from "../MyOrders/TableRowMe";
 import MakeAdminModal from "./MakeAdminModal";
 import UsersRowMe from "./UsersRowMe";
@@ -38,6 +39,7 @@ const ManageUssers = () => {
   };
   return (
     <div>
+      <HelemetMe>Manage users</HelemetMe>
       <h2 className="text-xl font-bold mb-4">Manage Orders</h2>
       <Table striped={true}>
         <Table.Head>

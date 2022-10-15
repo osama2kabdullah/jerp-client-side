@@ -11,6 +11,7 @@ import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../../../App";
 import FullPageLoading from "../../shared/FullPageLoading";
+import HelemetMe from "../../shared/HelemetMe";
 import BuyModal from "./BuyModal";
 
 const ToolsDetails = () => {
@@ -30,6 +31,7 @@ const ToolsDetails = () => {
   const { about, picture, availableQty, name, minimumOrder, price } = product;
   return (
     <section class="text-gray-700 body-font overflow-hidden bg-white">
+      <HelemetMe>{name}</HelemetMe>
       <div class="container px-5 py-24 mx-auto">
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
           <img

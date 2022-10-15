@@ -3,6 +3,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import DeleteModal from "../../shared/DeleteModal";
 import FullPageLoading from "../../shared/FullPageLoading";
+import HelemetMe from "../../shared/HelemetMe";
 import OrdersRowMe from "./OrdersRowMe";
 
 const ManageOrders = () => {
@@ -24,6 +25,7 @@ const ManageOrders = () => {
     });
   return (
     <div>
+      <HelemetMe>Manage orders</HelemetMe>
       <h2 className="text-xl font-bold mb-4">Manage Products</h2>
       <Table striped={true}>
         <Table.Head>

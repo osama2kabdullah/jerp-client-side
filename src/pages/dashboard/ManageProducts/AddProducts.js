@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import FullPageLoading from "../../shared/FullPageLoading";
 import HeadTitle from "../../shared/HeadTitle";
+import HelemetMe from "../../shared/HelemetMe";
 
 const AddProducts = () => {
     const [uploaing, setUploaing] = useState(false);
@@ -48,6 +49,7 @@ const AddProducts = () => {
   };
   return (
     <div>
+      <HelemetMe>Add product</HelemetMe>
       {uploaing && <FullPageLoading></FullPageLoading>}
       <HeadTitle>Add new Products</HeadTitle>
       <div>
