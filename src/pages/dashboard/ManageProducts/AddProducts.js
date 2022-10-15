@@ -30,7 +30,7 @@ const AddProducts = () => {
       .then((res) => res.json())
       .then((data) => {
         inputFormData.picture = data?.data?.url
-        fetch('https://damp-reef-67167.herokuapp.com/addnewproduct', {
+        fetch('http://localhost:5000/addnewproduct', {
             method: 'POST',
             headers: {
                 'content-type':'application/json',

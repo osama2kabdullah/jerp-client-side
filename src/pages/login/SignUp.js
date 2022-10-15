@@ -27,7 +27,7 @@ const SignUp = () => {
       const doc = { UserName: data.name };
       //save to db this user
       fetch(
-        "https://damp-reef-67167.herokuapp.com/updateoradduser/" + data.email,
+        "http://localhost:5000/updateoradduser/" + data.email,
         {
           method: "PUT",
           headers: { "content-type": "application/json" },
@@ -48,7 +48,7 @@ const SignUp = () => {
   useEffect(() => {
     //get authorization token
     if (user) {
-      fetch("https://damp-reef-67167.herokuapp.com/gettoken/" + user?.user?.email)
+      fetch("http://localhost:5000/gettoken/" + user?.user?.email)
         .then((res) => res.json())
         .then((data) => {
           //save to loacal storage

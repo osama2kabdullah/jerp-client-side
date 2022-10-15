@@ -6,7 +6,7 @@ import HeadTitle from "../../shared/HeadTitle";
 import ReviewCard from "./ReviewCard";
 
 const Review = () => {
-  const {data: reviews, isLoading} = useQuery('loadReview', ()=>fetch('https://damp-reef-67167.herokuapp.com/reviews').then(res=>res.json()));
+  const {data: reviews, isLoading} = useQuery('loadReview', ()=>fetch('http://localhost:5000/reviews').then(res=>res.json()));
   if(isLoading){
     return <FullPageLoading></FullPageLoading>
   };

@@ -31,7 +31,7 @@ const BuyModal = ({ modal, setModal, product }) => {
       shippingAddress,
       phoneNumber,
     };
-    fetch("https://damp-reef-67167.herokuapp.com/makeOrder", {
+    fetch("http://localhost:5000/makeOrder", {
       method: "POST",
       headers: {
         authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -43,7 +43,7 @@ const BuyModal = ({ modal, setModal, product }) => {
       .then((data) => {
         const newProductAvailable =
           parseInt(availableQty) - parseInt(productQuantity);
-        fetch("https://damp-reef-67167.herokuapp.com/decreaseproductquantity/" + _id, {
+        fetch("http://localhost:5000/decreaseproductquantity/" + _id, {
           method: "PUT",
           headers: {
             "content-type": "application/json",

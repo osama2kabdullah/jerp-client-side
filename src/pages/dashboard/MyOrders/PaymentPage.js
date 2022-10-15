@@ -35,7 +35,7 @@ const CheckoutForm = ({ productprice }) => {
 
   useEffect(() => {
     if (productprice) {
-      fetch("https://damp-reef-67167.herokuapp.com/create_payment_intent", {
+      fetch("http://localhost:5000/create_payment_intent", {
         method: "POST",
         headers: {
           "content-type": "application/json",

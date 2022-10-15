@@ -2,6 +2,7 @@ import { Card, Dropdown } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import RatingMe from "./RatingMe";
 import ReviewStar from "./ReviewStar";
+import dummyavatar from "../../../assests/images/dummyavatar.jfif";
 
 const ReviewCard = ({ review }) => {
   const array = Array(parseInt(review?.rating));
@@ -9,7 +10,7 @@ const ReviewCard = ({ review }) => {
   useEffect(() => {
     if (review) {
       fetch(
-        "https://damp-reef-67167.herokuapp.com/finduser/" + review.user.email,
+        "http://localhost:5000/finduser/" + review.user.email,
         {
           method: "GET",
           headers: {
@@ -29,11 +30,11 @@ const ReviewCard = ({ review }) => {
         <div className="flex flex-col items-center pb-10">
           <div className="avatar">
             <div className="w-24 rounded-full">
-              <img src={photoURL} />
+              <img src={photoURL || dummyavatar} alt=''/>
             </div>
           </div>
           <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-            {review?.user.name || review?.user.email}
+            {review?.user?.doc?.UserName || review?.user.email}
           </h5>
           <div className="flex">
             <RatingMe rating={review?.rating}></RatingMe>
