@@ -4,21 +4,29 @@ import { Link } from "react-router-dom";
 import { AppContext } from "../../App";
 
 const MyProfile = () => {
-  const {data} = useContext(AppContext);
-  const {UserName, about, city, countryName, photoURL, state, street} = data?.doc;
-  
+  const { data } = useContext(AppContext);
+  const { UserName, about, city, countryName, photoURL, state, street } =
+    data?.doc;
+
   return (
     <section class="pt-16 bg-blueGray-50">
-        
       <div class="w-full lg:w-10/12 px-4 mx-auto">
-        
         <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
-        <button className="absolute top-4 right-4"><Link to='/settings'><Button>Edit</Button></Link></button>
+          <button className="absolute top-4 right-4">
+            <Link to="/settings">
+              <Button>Edit</Button>
+            </Link>
+          </button>
           <div class="px-6">
             <div class="flex flex-wrap justify-center">
-              <div class="w-full px-4 flex justify-center">
-                <div class="relative">
-                    <img className="rounded-full" src={photoURL} alt="" />
+              {/* <div class="w-full px-4 flex justify-center">
+                <div class="">
+                  <img className="rounded-full" src={photoURL} alt="" />
+                </div>
+              </div> */}
+              <div className="avatar">
+                <div className="w-64 rounded-full">
+                  <img src={photoURL} alt="" />
                 </div>
               </div>
               <div class="w-full px-4 text-center mt-5">
@@ -76,9 +84,7 @@ const MyProfile = () => {
       <footer class="relative  pt-8 pb-6 mt-8">
         <div class="container mx-auto px-4">
           <div class="flex flex-wrap items-center md:justify-between justify-center">
-            <div class="w-full md:w-6/12 px-4 mx-auto text-center">
-              
-            </div>
+            <div class="w-full md:w-6/12 px-4 mx-auto text-center"></div>
           </div>
         </div>
       </footer>

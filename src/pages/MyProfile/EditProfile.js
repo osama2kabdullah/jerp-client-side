@@ -10,9 +10,8 @@ const EditProfile = () => {
   const [currentUser] = useAuthState(auth);
   const [updating, setUpdating] = useState(false);
   //user already name
-  const {data} = useContext(AppContext);
+  const { data } = useContext(AppContext);
   const userAlredyName = data?.doc?.UserName;
-  console.log(data?.doc?.photoURL);
   //navigate
   const navigate = useNavigate();
   //react hook form
@@ -22,12 +21,20 @@ const EditProfile = () => {
     watch,
     formState: { errors },
   } = useForm();
-  
+
   //submit data
   const onSubmit = (data) => {
     setUpdating(true);
     const IMGBB_POST_API_KEY = "9d41b12eb2ac9f38fce3206217aa2abf";
-    const { about, city, countryName, firstName, lastName, postalCode, state, street,
+    const {
+      about,
+      city,
+      countryName,
+      firstName,
+      lastName,
+      postalCode,
+      state,
+      street,
     } = data;
     const formData = new FormData();
     formData.append("image", data?.file?.[0]);
@@ -40,26 +47,37 @@ const EditProfile = () => {
       .then((res) => res.json())
       .then((data) => {
         //assign essential data
-          const imgbbUrl = data?.data?.url;
-          const doc = { about, city, countryName, UserName: firstName + " " + lastName || currentUser?.displayName || userAlredyName, postalCode, state, street, photoURL: imgbbUrl || currentUser.photoURL,
-          };
-      
-      //save in our mongodb total data
-      fetch("https://damp-reef-67167.herokuapp.com/updateprofile", {
-      method: "PUT",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(doc),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if(data.acknowledged){
-          setUpdating(false);
-          navigate('/myprofile')
-        }
-      });
+        const imgbbUrl = data?.data?.url;
+        const doc = {
+          about,
+          city,
+          countryName,
+          UserName:
+            firstName + " " + lastName ||
+            currentUser?.displayName ||
+            userAlredyName,
+          postalCode,
+          state,
+          street,
+          photoURL: imgbbUrl || currentUser.photoURL,
+        };
+
+        //save in our mongodb total data
+        fetch("https://damp-reef-67167.herokuapp.com/updateprofile", {
+          method: "PUT",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(doc),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.acknowledged) {
+              setUpdating(false);
+              navigate("/myprofile");
+            }
+          });
       });
   };
 
@@ -87,11 +105,12 @@ const EditProfile = () => {
                       Photo
                     </label>
                     <div class="mt-1 flex items-center">
-                      <Avatar
-                        img={data?.doc?.photoURL}
-                        size="xl"
-                        rounded
-                      />
+                      {/* <Avatar img={data?.doc?.photoURL} size="xl" rounded /> */}
+                      <div className="avatar">
+                      <div className="w-24 rounded-full">
+                        <img alt="" src={data?.doc?.photoURL} />
+                      </div>
+                    </div>
                       <input
                         {...register("file")}
                         type="file"
