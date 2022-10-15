@@ -7,7 +7,7 @@ import Review from './Review/Review';
 import Tools from './Tools/Tools';
 
 const Home = () => {
-    const value = useContext(AppContext);
+    const {data} = useContext(AppContext);
     return (
         <div>
             <Bannar></Bannar>

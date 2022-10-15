@@ -4,7 +4,7 @@ import { Link, Outlet } from "react-router-dom";
 import { AppContext } from "../../App";
 
 const Dashboard = () => {
-  const value = useContext(AppContext);
+  const {data} = useContext(AppContext);
   return (
     <div className="drawer drawer-mobile">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -37,7 +37,7 @@ const Dashboard = () => {
           {/* <!-- Sidebar content here --> */}
           <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
 
-          {value?.doc?.role === "admin" || (
+          {data?.doc?.role === "admin" || (
             <>
               <li>
                 <Link to="/dashboard">My Orders</Link>
@@ -47,7 +47,7 @@ const Dashboard = () => {
               </li>
             </>
           )}
-          {value?.doc?.role === "admin" && (
+          {data?.doc?.role === "admin" && (
             <>
               <li>
                 <Link to="/dashboard">Manage Products</Link>

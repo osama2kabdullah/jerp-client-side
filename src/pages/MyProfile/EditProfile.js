@@ -10,9 +10,9 @@ const EditProfile = () => {
   const [currentUser] = useAuthState(auth);
   const [updating, setUpdating] = useState(false);
   //user already name
-  const contextValue = useContext(AppContext);
-  const userAlredyName = contextValue?.doc?.UserName;
-  console.log(contextValue?.doc?.photoURL);
+  const {data} = useContext(AppContext);
+  const userAlredyName = data?.doc?.UserName;
+  console.log(data?.doc?.photoURL);
   //navigate
   const navigate = useNavigate();
   //react hook form
@@ -88,7 +88,7 @@ const EditProfile = () => {
                     </label>
                     <div class="mt-1 flex items-center">
                       <Avatar
-                        img={contextValue?.doc?.photoURL}
+                        img={data?.doc?.photoURL}
                         size="xl"
                         rounded
                       />

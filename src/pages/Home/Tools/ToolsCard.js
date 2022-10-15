@@ -1,9 +1,11 @@
 import { Card } from 'flowbite-react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
+import { AppContext } from '../../../App';
 
 const ToolsCard = ({tool}) => {
     const {name, picture, _id, price, availableQty} = tool;
+    const {admin} = useContext(AppContext);
     return (
         <Card
           imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
@@ -26,7 +28,7 @@ const ToolsCard = ({tool}) => {
               to={'productdetail/'+_id}
               className={availableQty < 1 ? 'rounded-lg bg-yellow-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-4 focus:ring-blue-300' : 'rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300'}
             >
-              {availableQty < 1 ? 'See details' : 'Order Now'}
+              {availableQty < 1 || admin ? 'See details' : 'Order Now'}
             </Link>
           </div>
         </Card>

@@ -6,20 +6,20 @@ import DropdownLinks from './DropdownLinks';
 import { AppContext } from '../../../App';
 
 const UserAvatar = ({user}) => {
-  const contextValue = useContext(AppContext);
+  const {data} = useContext(AppContext);
     return (
   <div className="flex md:order-2">
     <Dropdown
       arrowIcon={false}
       inline={true}
-      label={<Avatar alt="User settings" img={contextValue?.doc?.photoURL} rounded={true}/>}
+      label={<Avatar alt="User settings" img={data?.doc?.photoURL} rounded={true}/>}
     >
       <Dropdown.Header>
         <span className="block text-sm">
-          {contextValue?.doc?.UserName}
+          {data?.doc?.UserName}
         </span>
         <span className="block truncate text-sm font-medium">
-          {contextValue?.email}
+          {data?.email}
         </span>
       </Dropdown.Header>
       <DropdownLinks></DropdownLinks>

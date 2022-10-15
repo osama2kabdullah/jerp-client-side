@@ -3,8 +3,8 @@ import { AppContext } from '../../App';
 import NotFoundPage from './NotFoundPage';
 
 const RequireAdmin = ({children}) => {
-    const value = useContext(AppContext);
-    const admin = value?.doc?.role === "admin";
+    const {data} = useContext(AppContext);
+    const admin = data?.doc?.role === "admin";
     if(admin){
         return children;
     }

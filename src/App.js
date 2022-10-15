@@ -28,6 +28,7 @@ import NotFoundPage from "./pages/shared/NotFoundPage";
 import PaymentPage from "./pages/dashboard/MyOrders/PaymentPage";
 import AboutMe from "./pages/Protfolio/AboutMe";
 import Blogs from "./pages/Blogs/Blogs";
+import useCheckAdmin from "./hooks/useCheckAdmin";
 
 export const AppContext = createContext();
 
@@ -43,6 +44,7 @@ function App() {
     }).then((res) => res.json())
   );
   //set dynamic path
+  const [admin, setAdmin] = useCheckAdmin(data);
   useEffect(()=> {
     if (data) {
       const admin = data?.doc?.role === "admin";
@@ -57,7 +59,7 @@ function App() {
   }
   return (
     <div>
-      <AppContext.Provider value={data}>
+      <AppContext.Provider value={{data, admin}}>
         <Header></Header>
         <Routes>
           <Route path="/" element={<Home></Home>}></Route>

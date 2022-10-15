@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { AppContext } from "../../App";
 
 const MyProfile = () => {
-  const contextValue = useContext(AppContext);
-  const {UserName, about, city, countryName, photoURL, state, street} = contextValue?.doc;
+  const {data} = useContext(AppContext);
+  const {UserName, about, city, countryName, photoURL, state, street} = data?.doc;
   
   return (
     <section class="pt-16 bg-blueGray-50">

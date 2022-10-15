@@ -6,16 +6,18 @@ import {
   Rating,
   TextInput,
 } from "flowbite-react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { AppContext } from "../../../App";
 import FullPageLoading from "../../shared/FullPageLoading";
 import BuyModal from "./BuyModal";
 
 const ToolsDetails = () => {
   const { id } = useParams();
   const [modal, setModal] = useState(false);
-
+  const {admin} = useContext(AppContext);
+  const navigate = useNavigate();
   //set a authorization
   const { data: product, isLoading } = useQuery(["loadOneProduct", id], () =>
     fetch(`https://damp-reef-67167.herokuapp.com/productdetail/${id}`).then((res) => res.json())
@@ -67,12 +69,20 @@ const ToolsDetails = () => {
               <span class="title-font font-medium text-2xl text-gray-900">
                 ${price}
               </span>
-              <button
-                onClick={() => setModal(availableQty < 1 ? false : true)}
+              {
+                admin ? <button
+                onClick={()=>navigate('/dashboard/updateproduct/'+id)}
                 class="flex ml-auto text-white border-0 focus:outline-none "
               >
-                <Button disabled={availableQty < 1}>{availableQty < 1 ? 'Out of stock' : 'Palce Order'}</Button>
-              </button>
+                <Button>Update Product</Button>
+              </button> :
+              <button
+              onClick={() => setModal(availableQty < 1 ? false : true)}
+              class="flex ml-auto text-white border-0 focus:outline-none "
+            >
+              <Button disabled={availableQty < 1}>{availableQty < 1 ? 'Out of stock' : 'Palce Order'}</Button>
+            </button>
+              }
               <BuyModal product={product} modal={modal} setModal={setModal}></BuyModal>
 
               <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
