@@ -1,7 +1,10 @@
 import { Footer } from "flowbite-react";
 import React from "react";
+import { Link } from "react-router-dom";
+import log from "../assests/images/log.png";
 
 const FooterMe = () => {
+  const year = new Date().getFullYear();
   return (
     <Footer container={true}>
       <div className="w-full">
@@ -9,38 +12,30 @@ const FooterMe = () => {
           <div>
             <Footer.Brand
               href="https://flowbite.com"
-              src="https://flowbite.com/docs/images/logo.svg"
+              src={log}
               alt="Flowbite Logo"
-              name="Flowbite"
+              name="Jerp"
             />
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
             <div>
               <Footer.Title title="about" />
               <Footer.LinkGroup col={true}>
-                <Footer.Link href="#">Flowbite</Footer.Link>
-                <Footer.Link href="#">Tailwind CSS</Footer.Link>
+                <Link to='/aboutme'><Footer.Link href="#">About me</Footer.Link></Link>
               </Footer.LinkGroup>
             </div>
             <div>
-              <Footer.Title title="Follow us" />
+              <Footer.Title title="Follow me" />
               <Footer.LinkGroup col={true}>
-                <Footer.Link href="#">Github</Footer.Link>
-                <Footer.Link href="#">Discord</Footer.Link>
-              </Footer.LinkGroup>
-            </div>
-            <div>
-              <Footer.Title title="Legal" />
-              <Footer.LinkGroup col={true}>
-                <Footer.Link href="#">Privacy Policy</Footer.Link>
-                <Footer.Link href="#">Terms & Conditions</Footer.Link>
+                <a target="_blank" rel="noreferrer" href="https://github.com/osama2kabdullah"><Footer.Link>Github</Footer.Link></a>
+                <a target="_blank" rel="noreferrer" href="https://github.com/osama2kabdullah"><Footer.Link>Linkedin</Footer.Link></a>
               </Footer.LinkGroup>
             </div>
           </div>
         </div>
         <Footer.Divider />
         <div className="w-full sm:flex sm:items-center sm:justify-between">
-          <Footer.Copyright href="#" by="Flowbite™" year={2022} />
+          <Footer.Copyright by="Jerp™" year={year} />
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
             {/* <Footer.Icon
               href="#"

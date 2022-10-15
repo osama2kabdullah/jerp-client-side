@@ -9,7 +9,6 @@ const Bannar = () => {
         <h1 className="lg:text-6xl mb-8 text-3xl font-bold">
           One of the largest Company in Shiromoni
         </h1>
-        <Button>Default</Button>
       </div>
       <img className="" src={bannar} alt="" />
     </section>
