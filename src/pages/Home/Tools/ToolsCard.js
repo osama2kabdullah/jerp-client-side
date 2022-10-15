@@ -15,7 +15,8 @@ const ToolsCard = ({tool}) => {
             </h5>
           </span>
           <span className="text-lg font-bold text-gray-900 dark:text-white">
-             Available {availableQty} Qty
+            {availableQty < 1 ? <span className='text-yellow-700'>Out of stock</span>: <span>Available {availableQty} Qty</span>}
+             
             </span>
           <div className="flex items-center justify-between">
             <span className="text-3xl font-bold text-gray-900 dark:text-white">
@@ -23,9 +24,9 @@ const ToolsCard = ({tool}) => {
             </span>
             <Link
               to={'productdetail/'+_id}
-              className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className={availableQty < 1 ? 'rounded-lg bg-yellow-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-4 focus:ring-blue-300' : 'rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300'}
             >
-              Order Now
+              {availableQty < 1 ? 'See details' : 'Order Now'}
             </Link>
           </div>
         </Card>

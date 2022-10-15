@@ -45,7 +45,7 @@ const EditProfile = () => {
           };
       
       //save in our mongodb total data
-      fetch("http://localhost:5000/updateprofile", {
+      fetch("https://damp-reef-67167.herokuapp.com/updateprofile", {
       method: "PUT",
       headers: {
         authorization: `Bearer ${localStorage.getItem("access_token")}`,

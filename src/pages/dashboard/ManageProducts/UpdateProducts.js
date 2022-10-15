@@ -12,7 +12,7 @@ const UpdateProducts = () => {
   // lload data
   const { id } = useParams();
   const { data, isLoading } = useQuery("loadAProduct", () =>
-    fetch(`http://localhost:5000/product/${id}`).then((res) => res.json())
+    fetch(`https://damp-reef-67167.herokuapp.com/product/${id}`).then((res) => res.json())
   );
 
   //form
@@ -43,7 +43,7 @@ const UpdateProducts = () => {
       const doc = {about: ownAbout || about, availableQty: qtyOwn || availableQty, minimumOrder: minimumOrderOwn || minimumOrder, name: productNameOwn || name, picture: imgbbUrl || picture, price: priceOwn || price}
       
       //update in db
-      fetch('http://localhost:5000/updateproduct/'+id, {
+      fetch('https://damp-reef-67167.herokuapp.com/updateproduct/'+id, {
         method: 'PUT',
         headers: {
           'content-type':'application/json',

@@ -8,7 +8,7 @@ const OrdersRowMe = ({product}) => {
     const [user, setUser] = useState({});
     //find user
     useEffect(()=>{
-        fetch('http://localhost:5000/finduser/'+Useremail, {
+        fetch('https://damp-reef-67167.herokuapp.com/finduser/'+Useremail, {
           method: 'GET',
           headers: {
             authorization: `Bearer ${localStorage.getItem('access_token')}`

@@ -14,7 +14,7 @@ const AltLogin = () => {
     //save to db this user
     if (user) {
       fetch(
-        "http://localhost:5000/updateoradduser/" +
+        "https://damp-reef-67167.herokuapp.com/updateoradduser/" +
           user?.user?.email,
         {
           method: "PUT",
@@ -32,7 +32,7 @@ const AltLogin = () => {
 
   useEffect(() => {
     if(user){
-      fetch("http://localhost:5000/gettoken/" + user?.user?.email)
+      fetch("https://damp-reef-67167.herokuapp.com/gettoken/" + user?.user?.email)
       .then((res) => res.json())
       .then((data) => {
         localStorage.setItem("access_token", data.token);

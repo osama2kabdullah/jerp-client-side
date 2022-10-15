@@ -6,7 +6,7 @@ const AddReview = () => {
         e.preventDefault();
         const doc = {rating: e.target.ratings.value, reviwMessage: e.target.reviewText.value};
         if(doc.reviwMessage){
-            fetch('http://localhost:5000/addreview', {
+            fetch('https://damp-reef-67167.herokuapp.com/addreview', {
                 method: 'POST',
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('access_token')}`,

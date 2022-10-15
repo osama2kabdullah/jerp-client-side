@@ -1,14 +1,21 @@
 import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FullPageLoading from "../../shared/FullPageLoading";
 
 const BuyModal = ({ modal, setModal, product }) => {
   const navigate = useNavigate();
   const { availableQty, name, minimumOrder, price, _id } = product;
-  const [orderQty, setOrderQty] = useState(minimumOrder);
+  const [orderQty, setOrderQty] = useState((availableQty < minimumOrder) ? availableQty : minimumOrder);
   const [ordering, setOrdering] = useState(false);
 
+  const [lessThannAvailable, setlessThannAvailable] = useState(false);
+  useEffect(()=>{
+    if(minimumOrder > availableQty){
+      setlessThannAvailable(true)
+    }
+  },[minimumOrder, availableQty])
+  console.log('tukush',lessThannAvailable);
   
   const handleConfirmOrder = (e) => {
     setOrdering(true);
@@ -24,7 +31,7 @@ const BuyModal = ({ modal, setModal, product }) => {
       shippingAddress,
       phoneNumber,
     };
-    fetch("http://localhost:5000/makeOrder", {
+    fetch("https://damp-reef-67167.herokuapp.com/makeOrder", {
       method: "POST",
       headers: {
         authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -34,8 +41,9 @@ const BuyModal = ({ modal, setModal, product }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        const newProductAvailable = parseInt(availableQty) - parseInt(productQuantity);
-        fetch("http://localhost:5000/decreaseproductquantity/" + _id, {
+        const newProductAvailable =
+          parseInt(availableQty) - parseInt(productQuantity);
+        fetch("https://damp-reef-67167.herokuapp.com/decreaseproductquantity/" + _id, {
           method: "PUT",
           headers: {
             "content-type": "application/json",
@@ -49,10 +57,10 @@ const BuyModal = ({ modal, setModal, product }) => {
           });
         setOrdering(false);
         setModal(false);
-        navigate('/dashboard')
+        navigate("/dashboard");
       });
   };
-  console.log("ordering", ordering);
+console.log(orderQty);
   return (
     <React.Fragment>
       <Modal
@@ -137,7 +145,7 @@ const BuyModal = ({ modal, setModal, product }) => {
                 {availableQty < parseInt(orderQty) && (
                   <small className="text-red-500">Out of stock</small>
                 )}
-                {minimumOrder > parseInt(orderQty) && (
+                {(lessThannAvailable ? 0 : minimumOrder) > parseInt(orderQty) && (
                   <small className="text-red-500">
                     Minimum order {minimumOrder}
                   </small>
@@ -145,8 +153,8 @@ const BuyModal = ({ modal, setModal, product }) => {
               </div>
               <Button
                 disabled={
-                  availableQty < parseInt(orderQty) ||
-                  minimumOrder > parseInt(orderQty)
+                  !orderQty || availableQty < parseInt(orderQty) ||
+                  (lessThannAvailable ? 0 : minimumOrder) > parseInt(orderQty)
                 }
               >
                 {" "}

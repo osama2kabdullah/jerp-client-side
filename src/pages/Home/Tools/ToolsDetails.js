@@ -16,8 +16,9 @@ const ToolsDetails = () => {
   const { id } = useParams();
   const [modal, setModal] = useState(false);
 
+  //set a authorization
   const { data: product, isLoading } = useQuery(["loadOneProduct", id], () =>
-    fetch(`http://localhost:5000/productdetail/${id}`).then((res) => res.json())
+    fetch(`https://damp-reef-67167.herokuapp.com/productdetail/${id}`).then((res) => res.json())
   );
 
   if (isLoading) {
@@ -67,10 +68,10 @@ const ToolsDetails = () => {
                 ${price}
               </span>
               <button
-                onClick={() => setModal(true)}
+                onClick={() => setModal(availableQty < 1 ? false : true)}
                 class="flex ml-auto text-white border-0 focus:outline-none "
               >
-                <Button>Palce Order</Button>
+                <Button disabled={availableQty < 1}>{availableQty < 1 ? 'Out of stock' : 'Palce Order'}</Button>
               </button>
               <BuyModal product={product} modal={modal} setModal={setModal}></BuyModal>
 

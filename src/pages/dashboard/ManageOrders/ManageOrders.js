@@ -6,7 +6,7 @@ import FullPageLoading from "../../shared/FullPageLoading";
 import OrdersRowMe from "./OrdersRowMe";
 
 const ManageOrders = () => {
-    const {data, isLoading} = useQuery('allorders', ()=>fetch('http://localhost:5000/allorders', {
+    const {data, isLoading} = useQuery('allorders', ()=>fetch('https://damp-reef-67167.herokuapp.com/allorders', {
       method: 'GET',
       headers: {
         authorization: `Bearer ${localStorage.getItem('access_token')}`

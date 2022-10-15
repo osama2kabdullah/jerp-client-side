@@ -10,7 +10,7 @@ const MyOrders = () => {
   
   //load data
   const { data, isLoading, refetch } = useQuery("myorders", () =>
-    fetch("http://localhost:5000/myorders", {
+    fetch("https://damp-reef-67167.herokuapp.com/myorders", {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -24,7 +24,7 @@ const MyOrders = () => {
   //remove a data
   const handleDelete = name => {
     const rest = data?.result?.orderlist?.filter(order=>order.productName !== name.productName);
-    fetch('http://localhost:5000/cancelOrder', {
+    fetch('https://damp-reef-67167.herokuapp.com/cancelOrder', {
         method: 'PATCH',
         headers: {
             'content-type':'application/json',

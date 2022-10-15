@@ -9,7 +9,7 @@ import UsersRowMe from "./UsersRowMe";
 const ManageUssers = () => {
   const [modal, setModal] = useState(false);
   const { data: users, isLoading, refetch } = useQuery("allusers", () =>
-    fetch("http://localhost:5000/allusers", {
+    fetch("https://damp-reef-67167.herokuapp.com/allusers", {
       method: 'GET',
       headers: {
         authorization: `Bearer ${localStorage.getItem('access_token')}`
@@ -18,7 +18,7 @@ const ManageUssers = () => {
   );
   
   const handleMakeAdmin = (id) => {
-    fetch('http://localhost:5000/takeactionforuser/'+id, {
+    fetch('https://damp-reef-67167.herokuapp.com/takeactionforuser/'+id, {
         method: 'PUT',
         headers: {
             'content-type':'application/json',

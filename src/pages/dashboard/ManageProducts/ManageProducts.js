@@ -11,7 +11,7 @@ const ManageProducts = () => {
   const [modal, setModal] = useState(false);
 
   const handleDelete = (id) => {
-    fetch("http://localhost:5000/delete/" + id, {
+    fetch("https://damp-reef-67167.herokuapp.com/delete/" + id, {
       method: "DELETE",
       headers: {
         authorization: `Bearer ${localStorage.getItem('access_token')}`

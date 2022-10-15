@@ -8,7 +8,7 @@ const ReviewCard = ({ review }) => {
   const [photoURL, setPhotoURL] = useState('');
   useEffect(()=> {
     if(review){
-      fetch('http://localhost:5000/finduser/'+review.user.email, {
+      fetch('https://damp-reef-67167.herokuapp.com/finduser/'+review.user.email, {
         method: 'GET',
           headers: {
             authorization: `Bearer ${localStorage.getItem('access_token')}`
